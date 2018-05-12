@@ -5,7 +5,7 @@
 
 # testing
 /coverage
-
+/typescript
 # production
 /build
 
