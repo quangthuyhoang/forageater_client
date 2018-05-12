@@ -55,10 +55,11 @@ class App extends Component {
 
   render() {
     var fdList;
-    if(this.foodList) {
+    
+    if(this.state.foodList) {
       console.log("1st")
       fdList = this.state.foodList.map(function(item) {
-        return <li>item.name</li>
+        return <li>{item.name}</li>
       })
     } else {
       fdList = [];
