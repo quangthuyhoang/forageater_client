@@ -29,15 +29,10 @@ class FoodSelectionList extends Component {
         if(foods) {
             for(let i in foods) {
                 var val = JSON.stringify(foods[i]);
-                
                 options.push(
-                    <option onClick={this.selectItem} key={i + 1} value={val} >{foods[i].name}</option>
+                    <option onClick={this.selectItem} key={i + 1} value={val} >{foods[i].name.toLowerCase()}</option>
                 )
             }
-            
-            // options = this.props.foodList.map(function(item, i) {
-            //     return <option onClick={this.selectItem} key={i} value={item.ndbno} >{item.name}</option>
-            // })
         }
 
         return (

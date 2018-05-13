@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import seed from './Constants/seed';
-import FoodList from './Components/FoodList';
+// import FoodList from './Components/FoodList';
+import Grocery from './Components/Grocery';
+import ShowNutrition from './Containers/ShowNutrition';
 import './App.css';
+import { BrowserRouter as Router, Route, Link, Switch, Redirect} from 'react-router-dom';
 
 class App extends Component {
 
@@ -39,9 +42,11 @@ class App extends Component {
 
   // fetch API data
   getFoodList() {
+    console.log(this.state.query)
     const ds = "sr";
     fetch(this.props.apiURL + ds + "/" + this.state.query)
     .then(function(response) {
+      console.log(response)
       if(!response.status === 200) {
         console.log(response.body)
       }
@@ -62,7 +67,7 @@ class App extends Component {
   // get current Select item from food list
   selectGroceryItem(value) {
     
-    if(value != "0") {
+    if(value !== "0") {
       this.setState({groceryListSelect: JSON.parse(value)}, ()=> {
         console.log(this.state.groceryListSelect)
       })
@@ -74,7 +79,7 @@ class App extends Component {
   // get current Select item from food list
   selectDishItem(value) {
    
-    if(value != "0") {
+    if(value !== "0") {
       this.setState({dishItemSelect: JSON.parse(value)}, ()=> {
         console.log(this.state.dishItemSelect)
       })
@@ -113,27 +118,50 @@ class App extends Component {
   }
 
   render() {
-    var fdList;
-    
-    if(this.state.foodList) {
-      fdList = this.state.foodList.map(function(item) {
-        return <li>{item.name}</li>
-      })
-    } else {
-      fdList = [];
-    }
+  
   
       
     return (
-      
+      <Router>
       <div className="App">
-        <div className="formBox">
-          
-          <label for="male">Food Search: </label>
-          <input id="query" onChange={this.inputHandler} placeholder="raw chicken breast"/>
-          <button onClick={this.getFoodList} >Search</button>
-        </div>
-        <div className="food-selection">
+      {/* Menu Links */}
+      <div className="container">
+        <ul>
+          {/* <li><a href="#">Home</a></li> */}
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/grocery">Grocery</Link></li>
+          <li><Link to="/meal">Meal</Link></li>
+        </ul>
+        <hr/>
+      {/*Routes will go here */}
+      <Route exact={true} path="/" render={() => {
+        return (
+          <div className="jumbotron">
+            <h1 className="display-3">Home Page</h1>
+          </div>
+        )
+      }} />
+      <Route path="/grocery" render={() => {
+        return (
+          <div>
+            <div className="jumbotron">
+              <h1 className="display-3">Search for food</h1>
+            </div>
+            <div className="formBox">
+              <label for="male">Food Search: </label>
+              <input id="query" onChange={this.inputHandler} placeholder="raw chicken breast"/>
+              <button onClick={this.getFoodList} >Search</button>
+            </div>
+            <Grocery groceryList={this.state.groceryList} groceryListSelect={this.groceryListSelect}selectGroceryItem={this.selectGroceryItem} addFoodItem={this.addFoodItem} removeFoodItem={this.removeFoodItem} dish={this.state.dish} selectDishItem={this.selectDishItem}
+            />
+          </div>
+        )
+      }} />
+      <Route  path="/meal" component={ShowNutrition} />
+      </div>
+        
+        
+        {/* <div className="food-selection">
         <div className="row">
           <div className="col-lg-5 col-sm-12 col-xs-12">
             <FoodList currSelect={this.state.groceryListSelect} name="Select One" foodList={this.state.groceryList} selectFoodItem={this.selectGroceryItem} test={this.test}/>
@@ -149,8 +177,11 @@ class App extends Component {
             <FoodList name="Food Items" foodList={this.state.dish}selectFoodItem={this.selectDishItem} />
           </div>
         </div>
-        </div>
+        </div> */}
       </div>
+      
+
+      </Router>
     );
   }
 }
