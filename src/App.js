@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import seed from './Constants/seed';
+import FoodList from './Components/FoodList';
 import './App.css';
 
 class App extends Component {
@@ -8,13 +9,19 @@ class App extends Component {
     super(props);
     this.state = {
       query: "",
-      foodList: [],
-      currItem: {},
+      groceryList: seed.foodList,
+      groceryListSelect: {},
       dish: [],
+      dishItemSelect: {},
     }
+    this.test = this.test.bind(this);
     this.inputHandler = this.inputHandler.bind(this);
     this.getFoodList = this.getFoodList.bind(this);
     this.updateFoodList = this.updateFoodList.bind(this);
+    this.selectGroceryItem = this.selectGroceryItem.bind(this);
+    this.selectDishItem = this.selectDishItem.bind(this);
+    this.addFoodItem = this.addFoodItem.bind(this);
+    this.removeFoodItem = this.removeFoodItem.bind(this);
   }
   // set query
   inputHandler(e) {
@@ -25,8 +32,8 @@ class App extends Component {
   }
 
   updateFoodList(newFoodArr) {
-    this.setState({foodList: newFoodArr}, ()=> {
-      console.log("foodLIst updated:", this.state.foodList);
+    this.setState({groceryList: newFoodArr}, ()=> {
+      console.log("groceryList updated:", this.state.groceryList);
     })
   }
 
@@ -43,8 +50,8 @@ class App extends Component {
       }
     })
     .then(function(data) {
-      this.setState({foodList: data.list.item}, ()=> {
-        console.log("foodlist has updated:", this.state.foodList)
+      this.setState({groceryList: data.list.item}, ()=> {
+        console.log("foodlist has updated:", this.state.groceryList)
       })
     }.bind(this)
   )
@@ -52,19 +59,70 @@ class App extends Component {
       console.log(err);
     })
   }
+  // get current Select item from food list
+  selectGroceryItem(value) {
+    
+    if(value != "0") {
+      this.setState({groceryListSelect: JSON.parse(value)}, ()=> {
+        console.log(this.state.groceryListSelect)
+      })
+    } else {
+      this.setState({groceryListSelect: ""})
+    }
+  }
+
+  // get current Select item from food list
+  selectDishItem(value) {
+   
+    if(value != "0") {
+      this.setState({dishItemSelect: JSON.parse(value)}, ()=> {
+        console.log(this.state.dishItemSelect)
+      })
+    } else {
+      this.setState({dishItemSelect: ""})
+    }
+  }
+
+  // add current select item to food items
+  addFoodItem() {
+    var newdish = this.state.dish;
+    newdish.push(this.state.groceryListSelect)
+    this.setState({dish: newdish}, () => {
+      console.log("currdish", this.state.dish)
+    })
+  }
+
+  // remove current select item from food items
+  removeFoodItem() {
+
+    var currDish = this.state.dish, newDish = [];
+    for(let i in currDish) {
+      if(currDish[i].offset !== this.state.dishItemSelect.offset) {
+        newDish.push(currDish[i]);
+      }
+    }
+
+   
+    this.setState({dish: newDish}, ()=> {
+      console.log("new dish:", this.state.dish)
+    })
+  }
+
+  test(){
+    console.log("test")
+  }
 
   render() {
     var fdList;
     
     if(this.state.foodList) {
-      console.log("1st")
       fdList = this.state.foodList.map(function(item) {
         return <li>{item.name}</li>
       })
     } else {
       fdList = [];
     }
-    console.log("fd", fdList)
+  
       
     return (
       
@@ -75,11 +133,22 @@ class App extends Component {
           <input id="query" onChange={this.inputHandler} placeholder="raw chicken breast"/>
           <button onClick={this.getFoodList} >Search</button>
         </div>
-        
-        <div className="foodList">
-          <ul>
-            {fdList}
-          </ul>
+        <div className="food-selection">
+        <div className="row">
+          <div className="col-lg-5 col-sm-12 col-xs-12">
+            <FoodList currSelect={this.state.groceryListSelect} name="Select One" foodList={this.state.groceryList} selectFoodItem={this.selectGroceryItem} test={this.test}/>
+          </div>
+          <div className="multiselect-controls col-lg-2 col-sm-12 col-xs-12">
+          <button className="rightall btn btn-block" onClick={this.addFoodItem}>ADD</button>
+          <button className="rightall btn btn-block">ADD ALL</button>
+          <button className="rightall btn btn-block" onClick={this.removeFoodItem}>REMOVE</button>
+          <button className="rightall btn btn-block">REMOVE ALL</button>
+          </div>
+          
+          <div className="col-lg-5 col-sm-12 col-xs-12">
+            <FoodList name="Food Items" foodList={this.state.dish}selectFoodItem={this.selectDishItem} />
+          </div>
+        </div>
         </div>
       </div>
     );

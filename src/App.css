@@ -26,3 +26,22 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+select {
+  overflow: auto;
+}
+
+.panel-body {
+  padding: 0;
+  border: solid 1px rgb(109, 109, 109);
+  border-radius: 3px;
+}
+
+.form-control {
+  border: none;
+}
+
+.food-selection {
+  margin-left: 10px;
+  margin-right: 10px;
+}
