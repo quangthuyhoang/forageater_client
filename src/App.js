@@ -16,6 +16,7 @@ class App extends Component {
       groceryListSelect: {},
       dish: [],
       dishItemSelect: {},
+      dishNutrition: [],
     }
     this.test = this.test.bind(this);
     this.inputHandler = this.inputHandler.bind(this);
@@ -40,14 +41,14 @@ class App extends Component {
     })
   }
 
-  // fetch API data
+  // fetch API data for groceryList
   getFoodList() {
-    console.log(this.state.query)
+
     const ds = "sr";
     fetch(this.props.apiURL + ds + "/" + this.state.query)
     .then(function(response) {
       console.log(response)
-      if(!response.status === 200) {
+      if(response.status !== 200) {
         console.log(response.body)
       }
       if(response.status === 200) {
@@ -55,6 +56,11 @@ class App extends Component {
       }
     })
     .then(function(data) {
+      if(data.errors) {
+        this.setState({groceryList: []}, ()=> {
+          console.log(data.errors.error[0].message)
+        })
+      }
       this.setState({groceryList: data.list.item}, ()=> {
         console.log("foodlist has updated:", this.state.groceryList)
       })
@@ -64,6 +70,24 @@ class App extends Component {
       console.log(err);
     })
   }
+
+// fetch POST to API data for nutrtion
+// dish = [Objs, Objts]
+  getNutrition() {
+    fetch('url')
+    .then(function(response) {
+      if(response.status !== 200) {
+        console.log(response.body)
+      }
+      if(response.status === 200) {
+        return response.json();
+      }
+    })
+    .then(function(data) {
+      console.log(data)
+    })
+  }
+
   // get current Select item from food list
   selectGroceryItem(value) {
     
@@ -118,21 +142,18 @@ class App extends Component {
   }
 
   render() {
-  
-  
-      
     return (
       <Router>
       <div className="App">
       {/* Menu Links */}
       <div className="container">
         <ul>
-          {/* <li><a href="#">Home</a></li> */}
           <li><Link to="/">Home</Link></li>
           <li><Link to="/grocery">Grocery</Link></li>
           <li><Link to="/meal">Meal</Link></li>
         </ul>
         <hr/>
+
       {/*Routes will go here */}
       <Route exact={true} path="/" render={() => {
         return (
@@ -152,7 +173,7 @@ class App extends Component {
               <input id="query" onChange={this.inputHandler} placeholder="raw chicken breast"/>
               <button onClick={this.getFoodList} >Search</button>
             </div>
-            <Grocery groceryList={this.state.groceryList} groceryListSelect={this.groceryListSelect}selectGroceryItem={this.selectGroceryItem} addFoodItem={this.addFoodItem} removeFoodItem={this.removeFoodItem} dish={this.state.dish} selectDishItem={this.selectDishItem}
+            <Grocery groceryList={this.state.groceryList} groceryListSelect={this.groceryListSelect} selectGroceryItem={this.selectGroceryItem} addFoodItem={this.addFoodItem} removeFoodItem={this.removeFoodItem} dish={this.state.dish} selectDishItem={this.selectDishItem}
             />
           </div>
         )
@@ -160,24 +181,6 @@ class App extends Component {
       <Route  path="/meal" component={ShowNutrition} />
       </div>
         
-        
-        {/* <div className="food-selection">
-        <div className="row">
-          <div className="col-lg-5 col-sm-12 col-xs-12">
-            <FoodList currSelect={this.state.groceryListSelect} name="Select One" foodList={this.state.groceryList} selectFoodItem={this.selectGroceryItem} test={this.test}/>
-          </div>
-          <div className="multiselect-controls col-lg-2 col-sm-12 col-xs-12">
-          <button className="rightall btn btn-block" onClick={this.addFoodItem}>ADD</button>
-          <button className="rightall btn btn-block">ADD ALL</button>
-          <button className="rightall btn btn-block" onClick={this.removeFoodItem}>REMOVE</button>
-          <button className="rightall btn btn-block">REMOVE ALL</button>
-          </div>
-          
-          <div className="col-lg-5 col-sm-12 col-xs-12">
-            <FoodList name="Food Items" foodList={this.state.dish}selectFoodItem={this.selectDishItem} />
-          </div>
-        </div>
-        </div> */}
       </div>
       
 

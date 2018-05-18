@@ -13,16 +13,22 @@ class FoodSelectionList extends Component {
 
     selectItem(e){
 
-        e.preventDefault();
-        this.props.selectFoodItem(e.target.value)
+        if(this.props.name === "Select One") {
+            this.props.selectGroceryItem(e.target.value)
+        } else {
+            this.props.selectDishItem(e.target.value)
+        }
+        // this.props.selectItem(e.target.value)
     }
 
     render() {
+        console.log(this.props.name, this.props.selectItem)
         // List all available choices
         var options = [], foods = this.props.foodList;
         if(this.props.name === "Select One") {
+            foods = this.props.groceryList
             options.push(
-                <option onClick={this.selectItem} key={0} value="" >select none</option>
+                <option onClick={this.selectItem} key={0} value="none" >select none</option>
             )
         }
         
