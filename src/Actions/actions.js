@@ -55,7 +55,7 @@ export function GetGroceryList(query) {
 function groceryItemSelect(item) {
     return {
         type: 'SELECT_GROCERY_ITEM',
-        groceryListSelect: item
+        groceryListSelect: JSON.parse(item)
     }
 }
   
@@ -80,11 +80,84 @@ export function selectGroceryItem(value) {
 
 // Dish List Selection Action
 export function dishItemSelect(item) {
+
     return {
         type: "SELECT_DISH_ITEM",
         dishItemSelect: JSON.parse(item)
     }
 }
+
+// add current select item to dishList
+function addFoodItemSuccess(item) {
+    return {
+        type: 'ADD_FOOD_ITEM_SUCCESS',
+        newItem: item
+    }
+}
+
+function addFoodItemFailure() {
+    return {
+        type: 'ADD_FOOD_ITEM_FAILURE'
+    }
+}
+
+export function addFoodItem(item) {
+    return function(dispatch) {
+        dispatch(addFoodItemSuccess(item))
+    }
+}
+
+
+
+// addFoodItem() {
+//     var newdish = this.state.dish;
+//     newdish.push(this.state.groceryListSelect)
+//     this.setState({dish: newdish}, () => {
+//       console.log("currdish", this.state.dish)
+//     })
+//   }
+
+  // remove current select item from dishList
+function removeFoodItemSuccess(item) {
+    console.log("removefooditem succes", item)
+    return {
+        type: 'REMOVE_FOOD_ITEM_SUCCESS',
+        removeItem: item
+    }
+}
+
+function removeFoodItemFailure(item) {
+    return {
+        type: 'REMOVE_FOOD_ITEM_FAILURE'
+    }
+}
+
+export function removeFoodItem() {
+ 
+        return function(dispatch) {
+            dispatch(removeFoodItemSuccess())
+        }
+    
+
+    // Select None or On Error
+    // return function(dispatch) {
+    //     dispatch(removeFoodItemFailure())
+    // }
+}
+//   removeFoodItem() {
+
+//     var currDish = this.state.dish, newDish = [];
+//     for(let i in currDish) {
+//       if(currDish[i].offset !== this.state.dishItemSelect.offset) {
+//         newDish.push(currDish[i]);
+//       }
+//     }
+
+   
+//     this.setState({dish: newDish}, ()=> {
+//       console.log("new dish:", this.state.dish)
+//     })
+//   }
 
 
 export function GetFood(item) {

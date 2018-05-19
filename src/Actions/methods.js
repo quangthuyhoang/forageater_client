@@ -19,3 +19,9 @@ function postData(url, data) {
   })
   .then(response => response.json()) // parses response to JSON
 }
+
+export function filterArrById(arr, val) {
+  return arr.filter(function(el) {
+    return el.ndbno !== val;
+  })
+}

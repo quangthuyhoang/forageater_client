@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import seed from './Constants/seed';
 // import FoodList from './Components/FoodList';
-import Grocery from './Components/Grocery';
+// import Grocery from './Components/Grocery';
+import GroceryContainer from './Containers/GroceryContainer';
 import ShowNutrition from './Containers/ShowNutrition';
 import './App.css';
 import { BrowserRouter as Router, Route, Link, Switch, Redirect} from 'react-router-dom';
@@ -173,8 +174,7 @@ class App extends Component {
               <input id="query" onChange={this.inputHandler} placeholder="raw chicken breast"/>
               <button onClick={this.getFoodList} >Search</button>
             </div>
-            <Grocery groceryList={this.state.groceryList} groceryListSelect={this.groceryListSelect} selectGroceryItem={this.selectGroceryItem} addFoodItem={this.addFoodItem} removeFoodItem={this.removeFoodItem} dish={this.state.dish} selectDishItem={this.selectDishItem}
-            />
+            <GroceryContainer />
           </div>
         )
       }} />
