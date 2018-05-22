@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import seed from './Constants/seed';
-// import FoodList from './Components/FoodList';
-// import Grocery from './Components/Grocery';
 import GroceryContainer from './Containers/GroceryContainer';
 import ShowNutrition from './Containers/ShowNutrition';
 import './App.css';
@@ -13,35 +11,17 @@ class App extends Component {
     super(props);
     this.state = {
       query: "",
-      groceryList: seed.foodList,
-      groceryListSelect: {},
-      dish: [],
-      dishItemSelect: {},
-      dishNutrition: [],
+
     }
    
     this.inputHandler = this.inputHandler.bind(this);
     this.getGroceries = this.getGroceries.bind(this);
-
-    // this.updateFoodList = this.updateFoodList.bind(this);
-    // this.selectGroceryItem = this.selectGroceryItem.bind(this);
-    // this.selectDishItem = this.selectDishItem.bind(this);
-    // this.addFoodItem = this.addFoodItem.bind(this);
-    // this.removeFoodItem = this.removeFoodItem.bind(this);
   }
   // set query
   inputHandler(e) {
     e.preventDefault();
-    this.setState({query: e.target.value}, ()=> {
-      console.log(this.state.query)
-    })
+    this.setState({query: e.target.value})
   }
-
-  // updateFoodList(newFoodArr) {
-  //   this.setState({groceryList: newFoodArr}, ()=> {
-  //     console.log("groceryList updated:", this.state.groceryList);
-  //   })
-  // }
 
   // // fetch API data for groceryList
 
@@ -66,55 +46,6 @@ class App extends Component {
     })
   }
 
-  // get current Select item from food list
-  // selectGroceryItem(value) {
-    
-  //   if(value !== "0") {
-  //     this.setState({groceryListSelect: JSON.parse(value)}, ()=> {
-  //       console.log(this.state.groceryListSelect)
-  //     })
-  //   } else {
-  //     this.setState({groceryListSelect: ""})
-  //   }
-  // }
-
-  // get current Select item from food list
-  // selectDishItem(value) {
-   
-  //   if(value !== "0") {
-  //     this.setState({dishItemSelect: JSON.parse(value)}, ()=> {
-  //       console.log(this.state.dishItemSelect)
-  //     })
-  //   } else {
-  //     this.setState({dishItemSelect: ""})
-  //   }
-  // }
-
-  // // add current select item to food items
-  // addFoodItem() {
-  //   var newdish = this.state.dish;
-  //   newdish.push(this.state.groceryListSelect)
-  //   this.setState({dish: newdish}, () => {
-  //     console.log("currdish", this.state.dish)
-  //   })
-  // }
-
-  // remove current select item from food items
-  // removeFoodItem() {
-
-  //   var currDish = this.state.dish, newDish = [];
-  //   for(let i in currDish) {
-  //     if(currDish[i].offset !== this.state.dishItemSelect.offset) {
-  //       newDish.push(currDish[i]);
-  //     }
-  //   }
-
-   
-  //   this.setState({dish: newDish}, ()=> {
-  //     console.log("new dish:", this.state.dish)
-  //   })
-  // }
-
 
   render() {
     return (
@@ -122,10 +53,10 @@ class App extends Component {
       <div className="App">
       {/* Menu Links */}
       <div className="container">
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/grocery">Grocery</Link></li>
-          <li><Link to="/meal">Meal</Link></li>
+        <ul className="nav justify-content-end">
+          <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
+          <li className="nav-item"><Link className="nav-link" to="/grocery">Grocery</Link></li>
+          <li className="nav-item"><Link className="nav-link" to="/meal">Meal</Link></li>
         </ul>
         <hr/>
 
