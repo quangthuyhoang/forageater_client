@@ -25,3 +25,4 @@ export function filterArrById(arr, val) {
     return el.ndbno !== val;
   })
 }
+

@@ -1,11 +1,11 @@
 const apiURL = "locahost"
 
-function getStandardReferenceDB() {
-    return fetch('http://localhost:3000/api/sr');
-}
+const getStandardReferenceDB = (query) => {
+    return 'http://localhost:3000/api/sr/' + query;
+};
 
-function getBrandedDB() {
-    return fetch('http://localhost:3000/api/bl')
+function getBrandedDB(query) {
+    return 'http://localhost:3000/api/bl/' + query;
 }
 
 
@@ -18,6 +18,10 @@ export function handleInputChange(txt) {
 
 
 // GET Grocery LIST ACTION
+const GetGroceryBegins = () => ({
+    type: 'GET_GROCERY_BEGINS'
+})
+
 function GetGrocerySuccess(item) {
     return {
         type: 'GET_GROCERY_SUCCESS',
@@ -33,16 +37,20 @@ function GetGroceryFailure(ErrorMessage) {
 }
 
 export function GetGroceryList(query) {
-    const apiURL = getStandardReferenceDB() + '/' + query;
+    const apiURL = getStandardReferenceDB()
+   
     return function(dispatch) {
-        apiURL.then(res => res.json())
+        dispatch(GetGroceryBegins())
+        return fetch(getStandardReferenceDB(query)).then(res => res.json())
         .then(data => {
+  
             // On Error
             if(data.errors) {
                 dispatch(GetGroceryFailure(data.errors.error[0].message))
-            }
+            } else {
             // On Success
-            dispatch(GetGrocerySuccess)
+                dispatch(GetGrocerySuccess(data.list.item))
+            }
         })
         .catch((err) => {
             console.log(err)
@@ -107,16 +115,6 @@ export function addFoodItem(item) {
     }
 }
 
-
-
-// addFoodItem() {
-//     var newdish = this.state.dish;
-//     newdish.push(this.state.groceryListSelect)
-//     this.setState({dish: newdish}, () => {
-//       console.log("currdish", this.state.dish)
-//     })
-//   }
-
   // remove current select item from dishList
 function removeFoodItemSuccess(item) {
     console.log("removefooditem succes", item)
@@ -137,30 +135,10 @@ export function removeFoodItem() {
         return function(dispatch) {
             dispatch(removeFoodItemSuccess())
         }
-    
-
-    // Select None or On Error
-    // return function(dispatch) {
-    //     dispatch(removeFoodItemFailure())
-    // }
 }
-//   removeFoodItem() {
-
-//     var currDish = this.state.dish, newDish = [];
-//     for(let i in currDish) {
-//       if(currDish[i].offset !== this.state.dishItemSelect.offset) {
-//         newDish.push(currDish[i]);
-//       }
-//     }
-
-   
-//     this.setState({dish: newDish}, ()=> {
-//       console.log("new dish:", this.state.dish)
-//     })
-//   }
 
 
-export function GetFood(item) {
+export function GetFood(query) {
 
 }
 

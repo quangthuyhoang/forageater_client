@@ -19,14 +19,15 @@ class App extends Component {
       dishItemSelect: {},
       dishNutrition: [],
     }
-    this.test = this.test.bind(this);
+   
     this.inputHandler = this.inputHandler.bind(this);
-    this.getFoodList = this.getFoodList.bind(this);
-    this.updateFoodList = this.updateFoodList.bind(this);
-    this.selectGroceryItem = this.selectGroceryItem.bind(this);
-    this.selectDishItem = this.selectDishItem.bind(this);
-    this.addFoodItem = this.addFoodItem.bind(this);
-    this.removeFoodItem = this.removeFoodItem.bind(this);
+    this.getGroceries = this.getGroceries.bind(this);
+
+    // this.updateFoodList = this.updateFoodList.bind(this);
+    // this.selectGroceryItem = this.selectGroceryItem.bind(this);
+    // this.selectDishItem = this.selectDishItem.bind(this);
+    // this.addFoodItem = this.addFoodItem.bind(this);
+    // this.removeFoodItem = this.removeFoodItem.bind(this);
   }
   // set query
   inputHandler(e) {
@@ -36,40 +37,16 @@ class App extends Component {
     })
   }
 
-  updateFoodList(newFoodArr) {
-    this.setState({groceryList: newFoodArr}, ()=> {
-      console.log("groceryList updated:", this.state.groceryList);
-    })
-  }
+  // updateFoodList(newFoodArr) {
+  //   this.setState({groceryList: newFoodArr}, ()=> {
+  //     console.log("groceryList updated:", this.state.groceryList);
+  //   })
+  // }
 
-  // fetch API data for groceryList
-  getFoodList() {
+  // // fetch API data for groceryList
 
-    const ds = "sr";
-    fetch(this.props.apiURL + ds + "/" + this.state.query)
-    .then(function(response) {
-      console.log(response)
-      if(response.status !== 200) {
-        console.log(response.body)
-      }
-      if(response.status === 200) {
-        return response.json();
-      }
-    })
-    .then(function(data) {
-      if(data.errors) {
-        this.setState({groceryList: []}, ()=> {
-          console.log(data.errors.error[0].message)
-        })
-      }
-      this.setState({groceryList: data.list.item}, ()=> {
-        console.log("foodlist has updated:", this.state.groceryList)
-      })
-    }.bind(this)
-  )
-    .catch(function(err) {
-      console.log(err);
-    })
+  getGroceries() {
+    this.props.getFoodList(this.state.query)
   }
 
 // fetch POST to API data for nutrtion
@@ -90,57 +67,54 @@ class App extends Component {
   }
 
   // get current Select item from food list
-  selectGroceryItem(value) {
+  // selectGroceryItem(value) {
     
-    if(value !== "0") {
-      this.setState({groceryListSelect: JSON.parse(value)}, ()=> {
-        console.log(this.state.groceryListSelect)
-      })
-    } else {
-      this.setState({groceryListSelect: ""})
-    }
-  }
+  //   if(value !== "0") {
+  //     this.setState({groceryListSelect: JSON.parse(value)}, ()=> {
+  //       console.log(this.state.groceryListSelect)
+  //     })
+  //   } else {
+  //     this.setState({groceryListSelect: ""})
+  //   }
+  // }
 
   // get current Select item from food list
-  selectDishItem(value) {
+  // selectDishItem(value) {
    
-    if(value !== "0") {
-      this.setState({dishItemSelect: JSON.parse(value)}, ()=> {
-        console.log(this.state.dishItemSelect)
-      })
-    } else {
-      this.setState({dishItemSelect: ""})
-    }
-  }
+  //   if(value !== "0") {
+  //     this.setState({dishItemSelect: JSON.parse(value)}, ()=> {
+  //       console.log(this.state.dishItemSelect)
+  //     })
+  //   } else {
+  //     this.setState({dishItemSelect: ""})
+  //   }
+  // }
 
-  // add current select item to food items
-  addFoodItem() {
-    var newdish = this.state.dish;
-    newdish.push(this.state.groceryListSelect)
-    this.setState({dish: newdish}, () => {
-      console.log("currdish", this.state.dish)
-    })
-  }
+  // // add current select item to food items
+  // addFoodItem() {
+  //   var newdish = this.state.dish;
+  //   newdish.push(this.state.groceryListSelect)
+  //   this.setState({dish: newdish}, () => {
+  //     console.log("currdish", this.state.dish)
+  //   })
+  // }
 
   // remove current select item from food items
-  removeFoodItem() {
+  // removeFoodItem() {
 
-    var currDish = this.state.dish, newDish = [];
-    for(let i in currDish) {
-      if(currDish[i].offset !== this.state.dishItemSelect.offset) {
-        newDish.push(currDish[i]);
-      }
-    }
+  //   var currDish = this.state.dish, newDish = [];
+  //   for(let i in currDish) {
+  //     if(currDish[i].offset !== this.state.dishItemSelect.offset) {
+  //       newDish.push(currDish[i]);
+  //     }
+  //   }
 
    
-    this.setState({dish: newDish}, ()=> {
-      console.log("new dish:", this.state.dish)
-    })
-  }
+  //   this.setState({dish: newDish}, ()=> {
+  //     console.log("new dish:", this.state.dish)
+  //   })
+  // }
 
-  test(){
-    console.log("test")
-  }
 
   render() {
     return (
@@ -172,7 +146,7 @@ class App extends Component {
             <div className="formBox">
               <label for="male">Food Search: </label>
               <input id="query" onChange={this.inputHandler} placeholder="raw chicken breast"/>
-              <button onClick={this.getFoodList} >Search</button>
+              <button onClick={this.getGroceries} >Search</button>
             </div>
             <GroceryContainer />
           </div>

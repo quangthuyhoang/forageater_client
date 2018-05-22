@@ -15,8 +15,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     addFoodItem: bindActionCreators(action.addFoodItem, dispatch),
-    removeFoodItem: bindActionCreators(action.removeFoodItem, dispatch),
-    test: () => { console.log("test")}
+    removeFoodItem: bindActionCreators(action.removeFoodItem, dispatch)
 })
 
 const GroceryContainer = connect(mapStateToProps, mapDispatchToProps)(Grocery);

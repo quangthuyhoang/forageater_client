@@ -5,17 +5,15 @@ import { bindActionCreators } from 'redux';
 
 const mapStateToProps = (state) => {
     return {
-        groceryList: state.GroceryListReducer.groceryList,
-        dishList: state.GroceryListReducer.dish,
-        test: state
+        // groceryList: state.GroceryListReducer.groceryList,
+        // dishList: state.GroceryListReducer.dish,
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    selectGroceryItem: bindActionCreators(action.selectGroceryItem, dispatch),
-    selectDishItem: bindActionCreators(action.dishItemSelect, dispatch)
+    getFoodList: bindActionCreators(action.GetGroceryList, dispatch)
 })
 
-const FoodListContainer = connect(mapStateToProps, mapDispatchToProps)(FoodList);
+const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
 
-export default FoodListContainer;
+export default AppContainer;

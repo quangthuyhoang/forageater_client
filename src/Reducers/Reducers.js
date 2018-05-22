@@ -10,10 +10,34 @@ const initState = {
     dish: seed.foodList,
     dishItemSelect: {},
     dishNutrition: [],
+    message: {},
+    loading: false,
   }
 
 function GroceryListReducer(state = initState, action) {
     switch(action.type) {
+        case 'GET_GROCERY_BEGINS' : {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+        case 'GET_GROCERY_SUCCESS': {
+            return {
+                ...state,
+                groceryList: action.groceryList,
+                loading: false,
+            }
+        }
+
+        case 'GET_GROCERY_FAILURE': {
+            return {
+                ...state,
+                message: action.message,
+                groceryList: [],
+                loading: false,
+            }
+        }
         
         case 'SELECT_GROCERY_ITEM': {
             return {
