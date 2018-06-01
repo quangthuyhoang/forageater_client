@@ -22,7 +22,7 @@ class FoodSelectionList extends Component {
     }
 
     render() {
-        console.log(this.props.name, this.props.dishList)
+   
         // List all available choices
         var options = [], foods = this.props.dishList;
         if(this.props.name === "Select One") {

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import seed from './Constants/seed';
+// import seed from './Constants/seed';
 import GroceryContainer from './Containers/GroceryContainer';
-import ShowNutrition from './Containers/ShowNutrition';
+import ShowNutritionContainer from './Containers/ShowNutritionContainer';
 import './App.css';
-import { BrowserRouter as Router, Route, Link, Switch, Redirect} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
 
 class App extends Component {
 
@@ -16,6 +16,7 @@ class App extends Component {
    
     this.inputHandler = this.inputHandler.bind(this);
     this.getGroceries = this.getGroceries.bind(this);
+    this.getNutrition = this.getNutrition.bind(this);
   }
   // set query
   inputHandler(e) {
@@ -31,11 +32,21 @@ class App extends Component {
 
 // fetch POST to API data for nutrtion
 // dish = [Objs, Objts]
-  getNutrition() {
-    fetch('url')
+  getNutrition() { 
+    fetch('http://localhost:3000/api/nutrition', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: '{"hello" : "hi"}',
+      
+
+    })
     .then(function(response) {
       if(response.status !== 200) {
-        console.log(response.body)
+        console.log(response, response.body)
+        
       }
       if(response.status === 200) {
         return response.json();
@@ -45,6 +56,7 @@ class App extends Component {
       console.log(data)
     })
   }
+
 
 
   render() {
@@ -75,15 +87,17 @@ class App extends Component {
               <h1 className="display-3">Search for food</h1>
             </div>
             <div className="formBox">
-              <label for="male">Food Search: </label>
-              <input id="query" onChange={this.inputHandler} placeholder="raw chicken breast"/>
+              <label htmlFor="search">Food Search: </label>
+              <input name="search" id="query" onChange={this.inputHandler} placeholder="raw chicken breast"/>
               <button onClick={this.getGroceries} >Search</button>
+            
             </div>
             <GroceryContainer />
+    
           </div>
         )
       }} />
-      <Route  path="/meal" component={ShowNutrition} />
+      <Route  path="/meal" component={ShowNutritionContainer} />
       </div>
         
       </div>

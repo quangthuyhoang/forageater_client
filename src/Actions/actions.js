@@ -1,12 +1,13 @@
-const apiURL = "locahost"
+import { apiFetchNutritionPost } from './methods';
+// const apiURL = "locahost";
 
 const getStandardReferenceDB = (query) => {
     return 'http://localhost:3000/api/sr/' + query;
 };
 
-function getBrandedDB(query) {
-    return 'http://localhost:3000/api/bl/' + query;
-}
+// function getBrandedDB(query) {
+//     return 'http://localhost:3000/api/bl/' + query;
+// };
 
 
 export function handleInputChange(txt) {
@@ -36,9 +37,9 @@ function GetGroceryFailure(ErrorMessage) {
     }
 }
 
-export function GetGroceryList(query) {
-    const apiURL = getStandardReferenceDB()
-   
+
+
+export function GetGroceryList(query) {  
     return function(dispatch) {
         dispatch(GetGroceryBegins())
         return fetch(getStandardReferenceDB(query)).then(res => res.json())
@@ -103,11 +104,11 @@ function addFoodItemSuccess(item) {
     }
 }
 
-function addFoodItemFailure() {
-    return {
-        type: 'ADD_FOOD_ITEM_FAILURE'
-    }
-}
+// function addFoodItemFailure() {
+//     return {
+//         type: 'ADD_FOOD_ITEM_FAILURE'
+//     }
+// }
 
 export function addFoodItem(item) {
     return function(dispatch) {
@@ -124,25 +125,25 @@ function removeFoodItemSuccess(item) {
     }
 }
 
-function removeFoodItemFailure(item) {
-    return {
-        type: 'REMOVE_FOOD_ITEM_FAILURE'
-    }
-}
+// function removeFoodItemFailure(item) {
+//     return {
+//         type: 'REMOVE_FOOD_ITEM_FAILURE'
+//     }
+// }
 
 export function removeFoodItem() {
- 
         return function(dispatch) {
             dispatch(removeFoodItemSuccess())
         }
 }
 
-
-export function GetFood(query) {
-
+// GET NUTRITION
+function GetNutritionBegins() {
+    return {
+        type: 'GET_NUTRITION_BEGINS'
+    }
 }
 
-// GET NUTRITION
 export function GetNutritionSuccess(item) {
     return {
             type: 'GET_NUTRITION_SUCCESS',
@@ -150,63 +151,29 @@ export function GetNutritionSuccess(item) {
         }
 }
 
-export function GetStockFailure() {
+export function GetNutritionFailure() {
     return {
             type: 'GET_NUTRITION_FAILURE'
         }
 }
 
-
-// export function GetNutrition(item) {
-    // if(item.length === 0) {
-    //     return function(dispatch) {
-    //         dispatch(GetStockFailure())
-    //     }
-    // }
-
-    // ON ERROR
-    // if(info.error) {
-    //     return function(dispatch) {
-    //         dispatch(GetStockFailure())
-    //     }
-    // }
-
-    // ON SUCCESS
-//     return function(dispatch) {
-//         return fetch(apiURL)
-//         .then(response => response.json())
-//         .then(res => {
-//             dispatch(GetStockSuccess(res))
-//         })
-//     }
-// }
-
-// export const test = (symbol) => (dispatch, getState) => {
-//     return dispatch(GetStock(symbol))
-// }
-
-export function DeleteStockSuccess(id) {
-    return {
-        type: 'DELETE_STOCK_SUCCESS',
-        _id: id
+export function GetNutrition(dish) {
+    return function(dispatch) {
+        dispatch(GetNutritionBegins())
+        return apiFetchNutritionPost(dish).then(res => res.json())
+        .then(data => {
+            console.log("rsponse", data)
+            if(data.errors) {
+                dispatch(GetNutritionFailure(data.errors))
+            } else {
+                Object.keys(data)
+                dispatch(GetNutritionSuccess(data))
+            }
+        })
+        .catch(err => {
+            console.log("error", err)
+            dispatch(GetGroceryFailure(err))
+        })
     }
 }
 
-// export function DeleteStock(id) {
-//     return (dispatch) => {
-//         dispatch(DeleteStockSuccess(id))
-//     }
-// }
-
-
-// export function UpdateStockType(type) {
-//     return (dispatch) => {
-//         dispatch(UpdateStockTypeSuccess(type))
-//     }
-// }
-
-// export function UpdateTime(dataArr) {
-//     return (dispatch) => {
-//         dispatch(GetTimeSuccess(timeSeries(dataArr)))
-//     }
-// }

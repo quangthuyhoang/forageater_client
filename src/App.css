@@ -49,3 +49,22 @@ select {
 ul {
   list-style-type: none;
 }
+
+.soft-glow {
+  background: rgb(2,0,36);
+  color: white;
+  background: -moz-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(84,95,255,1) 0%, rgba(171,167,255,1) 87%);
+  background: -webkit-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(84,95,255,1) 0%, rgba(171,167,255,1) 87%);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(84,95,255,1) 0%, rgba(171,167,255,1) 87%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#aba7ff",GradientType=1);
+}
+
+.bottom-spacing {
+  margin-bottom: 10px;
+}
+
+.soft-glow-shadow {
+  -webkit-box-shadow: 6px 16px 81px -22px rgba(84,95,255,1);
+-moz-box-shadow: 6px 16px 81px -22px rgba(84,95,255,1);
+box-shadow: 6px 16px 81px -22px rgba(84,95,255,1);
+}

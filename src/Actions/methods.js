@@ -26,3 +26,32 @@ export function filterArrById(arr, val) {
   })
 }
 
+
+const createArrayByKey = (key, arr) => {
+  return arr.map( el => {return { 'ndbno': el[key] }; })
+}
+
+export const getDishNDBNoList = (dish) => {
+  return createArrayByKey('ndbno', dish) 
+} 
+
+
+
+// Send POST request to API
+// [ {"ndbno": "15236"}, {"ndbno": "45253479"}, {"ndbno": "45362799"} ]
+
+export const apiFetchNutritionPost = (arr) => {
+  let b = getDishNDBNoList(arr)
+
+  return fetch('http://localhost:3000/api/nutrition', {
+  method: 'POST',
+  mode: 'cors',
+  // protocol:'http:',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json; charset=utf-8',
+  },
+  body: JSON.stringify(b)
+})
+}
+

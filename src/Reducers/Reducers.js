@@ -1,4 +1,5 @@
-import * as actions from '../Actions/actions';
+// import * as actions from '../Actions/actions';
+// import { objArray } from '../Actions/utilities';
 import { combineReducers } from 'redux';
 import { filterArrById } from '../Actions/methods'
 import seed from '../Constants/seed';
@@ -9,7 +10,7 @@ const initState = {
     groceryListSelect: {},
     dish: seed.foodList,
     dishItemSelect: {},
-    dishNutrition: [],
+    dishNutrition: {},
     message: {},
     loading: false,
   }
@@ -60,21 +61,6 @@ function GroceryListReducer(state = initState, action) {
             }
         }
 
-        case 'GET_GROCERY_SUCCESS': {
-            return {
-                ...state,
-                groceryList: action.groceryList
-            }
-        }
-
-        case 'GET_GROCERY_FAILURE': {
-            return {
-                ...state,
-                groceryList: [],
-                errorMessage: action.message
-            }
-        }
-
         case 'ADD_FOOD_ITEM_SUCCESS': {
             let newDish = [...state.dish];
             if(state.groceryListSelect) {
@@ -95,8 +81,31 @@ function GroceryListReducer(state = initState, action) {
             }
         }
 
-        case ' REMOVE_FOOD_ITEM_FAILURE': {
+        case 'REMOVE_FOOD_ITEM_FAILURE': {
             return state;
+        }
+
+        case 'GET_NUTRITION_BEGINS': {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+
+        case 'GET_NUTRITION_SUCCESS': {
+            return {
+                ...state,
+                dishNutrition: action.dishNutrition,
+                loading: false
+            }
+        }
+
+        case 'GET_NUTRITION_FAILURE' : {
+            return {
+                ...state,
+                dishNutrition: {},
+                loading: false,
+            }
         }
 
         default: {
