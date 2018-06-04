@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.app-container {
+  padding-bottom: 5em;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -67,4 +71,60 @@ ul {
   -webkit-box-shadow: 6px 16px 81px -22px rgba(84,95,255,1);
 -moz-box-shadow: 6px 16px 81px -22px rgba(84,95,255,1);
 box-shadow: 6px 16px 81px -22px rgba(84,95,255,1);
+}
+
+/* NAVBAR */
+
+.navbar{ /* Every rule that will be always visible, something like colors, fonts, etc. */
+  background: -moz-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgb(235, 236, 247) 0%, rgba(171,167,255,1) 87%);
+  background: -webkit-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgb(235, 236, 247) 0%, rgba(171,167,255,1) 87%);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgb(235, 236, 247) 0%, rgba(171,167,255,1) 87%);
+  /* background: whitesmoke; */
+  position: fixed;
+  text-align: justify;
+  overflow: hidden;
+  z-index: 1;
+}
+
+li > a {
+  color: white;
+}
+
+li > a:hover {
+  color: black;
+}
+li > a:active {
+  color: green;
+}
+
+@media(min-width:35em){ /* Breakpoint only for desktop & tablets */
+  .navbar{
+    top: 0;
+    width: 100%;
+    text-align: right;
+  }
+  .navbar li {
+    /* display: inline-block; */
+    text-align: right;
+    float: right;
+  }
+}
+
+@media(max-width:35em){ /* Breakpoint only for mobile */
+  .navbar{
+    margin-bottom: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Modals */
+.md-show {
+  visibility: visible;
+}
+
+.md-show ~ .md-overlay {
+	opacity: 1;
+	visibility: visible;
 }

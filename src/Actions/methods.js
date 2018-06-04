@@ -1,3 +1,7 @@
+// const dotenv= require('dotenv');
+
+// dotenv.config();
+
 postData('http://example.com/answer', {answer: 42})
   .then(data => console.log(data)) // JSON from `response.json()` call
   .catch(error => console.error(error))
@@ -35,15 +39,28 @@ export const getDishNDBNoList = (dish) => {
   return createArrayByKey('ndbno', dish) 
 } 
 
-
+const getBaseURL = () => {
+  return 'https://forageater-api.herokuapp.com/';
+ };
 
 // Send POST request to API
 // [ {"ndbno": "15236"}, {"ndbno": "45253479"}, {"ndbno": "45362799"} ]
+export const apiFetchGroceryList = (db, query) => {
+  return fetch(getBaseURL() + 'api/' + db + '/' + query, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json; charset=utf-8',
+  },
+  })
+}
 
 export const apiFetchNutritionPost = (arr) => {
   let b = getDishNDBNoList(arr)
-
-  return fetch('http://localhost:3000/api/nutrition', {
+  
+  let url = 'https://forageater-api.herokuapp.com/';
+  return fetch( `${url}api/nutrition`, {
   method: 'POST',
   mode: 'cors',
   // protocol:'http:',

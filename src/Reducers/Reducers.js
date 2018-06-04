@@ -1,18 +1,16 @@
-// import * as actions from '../Actions/actions';
-// import { objArray } from '../Actions/utilities';
 import { combineReducers } from 'redux';
 import { filterArrById } from '../Actions/methods'
-import seed from '../Constants/seed';
 
 const initState = {
     query: "",
-    groceryList: seed.foodList,
+    groceryList: [],
     groceryListSelect: {},
-    dish: seed.foodList,
+    dish: [],
     dishItemSelect: {},
     dishNutrition: {},
     message: {},
     loading: false,
+    payload_arrived: true,
   }
 
 function GroceryListReducer(state = initState, action) {
@@ -88,7 +86,8 @@ function GroceryListReducer(state = initState, action) {
         case 'GET_NUTRITION_BEGINS': {
             return {
                 ...state,
-                loading: true
+                loading: true,
+                payload_arrived: false,
             }
         }
 
@@ -96,7 +95,8 @@ function GroceryListReducer(state = initState, action) {
             return {
                 ...state,
                 dishNutrition: action.dishNutrition,
-                loading: false
+                loading: false,
+                payload_arrived: true,
             }
         }
 
@@ -105,6 +105,8 @@ function GroceryListReducer(state = initState, action) {
                 ...state,
                 dishNutrition: {},
                 loading: false,
+                payload_arrived: false,
+                message: action.message,
             }
         }
 

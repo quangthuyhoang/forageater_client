@@ -1,0 +1,66 @@
+.logo-curtain {
+    background: rgb(67, 0, 105);
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.logo-curtain > h3, label, i {
+    color: white;
+}
+
+.md-show {
+    -webkit-transition-duration: 0.75s;
+    transition-duration: 0.75s;
+}
+
+.md-hide {
+    -webkit-transition-duration: 0.75s;
+    transition-duration: 0.75s;
+}
+
+@media(min-width:35em){ /* Breakpoint only for mobile */
+    .logo-curtain{
+      top: 56px;
+      text-align: center;
+    }
+  }
+
+
+@media(max-width:35em){ /* Breakpoint only for mobile */
+    .logo-curtain{
+      padding-top: 20em;
+      bottom: 56px;
+      text-align: center;
+    }
+  }
+
+.fa-search {
+    cursor:text;
+}
+
+input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 59px;
+    font-size: 16px;
+    background-color: white;
+    /* background-image: url('searchicon.png'); */
+    
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.8s ease-in-out;
+    transition: width 0.8s ease-in-out;
+}
+
+/* When the input field gets focus, change its width to 100% */
+input[type=text]:focus {
+    width: 100%;
+}
+
+
+
+

@@ -1,12 +1,17 @@
 import { apiFetchNutritionPost } from './methods';
 // const apiURL = "locahost";
 
+const getBaseURL = () => {
+ return 'https://forageater-api.herokuapp.com/';
+};
+
+
 const getStandardReferenceDB = (query) => {
-    return 'http://localhost:3000/api/sr/' + query;
+    return 'https://forageater-api.herokuapp.com/api/sr/' + query;
 };
 
 // function getBrandedDB(query) {
-//     return 'http://localhost:3000/api/bl/' + query;
+//     return 'https://forageater-api.herokuapp.com/api/bl/' + query;
 // };
 
 
@@ -151,9 +156,10 @@ export function GetNutritionSuccess(item) {
         }
 }
 
-export function GetNutritionFailure() {
+export function GetNutritionFailure(error) {
     return {
-            type: 'GET_NUTRITION_FAILURE'
+            type: 'GET_NUTRITION_FAILURE',
+            message: error
         }
 }
 
@@ -162,11 +168,9 @@ export function GetNutrition(dish) {
         dispatch(GetNutritionBegins())
         return apiFetchNutritionPost(dish).then(res => res.json())
         .then(data => {
-            console.log("rsponse", data)
             if(data.errors) {
                 dispatch(GetNutritionFailure(data.errors))
             } else {
-                Object.keys(data)
                 dispatch(GetNutritionSuccess(data))
             }
         })

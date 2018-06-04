@@ -6,7 +6,9 @@ import ShowNutrition from '../Components/ShowNutrition';
 const mapStateToProps = (state) => {
     return {
         dishNutrition: state.GroceryListReducer.dishNutrition,
-        loading: state.GroceryListReducer.loading
+        loading: state.GroceryListReducer.loading,
+        payload_arrived: state.GroceryListReducer.payload_arrived,
+        message: state.GroceryListReducer.message,
     }
 }
 

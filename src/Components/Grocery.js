@@ -19,12 +19,12 @@ class Grocery extends Component {
               <div className="multiselect-controls col-lg-2 col-sm-12 col-xs-12">
               <button className="rightall btn btn-block btn-primary" onClick={ () =>{(this.props.groceryListSelect.name) ? this.props.addFoodItem(this.props.groceryListSelect) : ""} }>ADD</button>
               <button className="rightall btn btn-block btn-warning" onClick={this.props.removeFoodItem}>REMOVE</button>
-              <Link to="/meal" ><button className="rightall btn btn-block btn-success" onClick={()=> {this.props.getNutrition(this.props.dishList)}}>Make A Dish</button></Link>
+              
               </div>
               
               <div className="col-lg-5 col-sm-12 col-xs-12">
               <FoodListContainer name="Food Items" />
-                
+              <Link to="/meal" ><button className="rightall btn btn-block btn-success" onClick={()=> {this.props.getNutrition(this.props.dishList)}}>Make A Dish</button></Link>
               </div>
             </div>
             </div>

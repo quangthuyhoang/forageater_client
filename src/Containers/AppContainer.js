@@ -5,8 +5,8 @@ import { bindActionCreators } from 'redux';
 
 const mapStateToProps = (state) => {
     return {
-        // groceryList: state.GroceryListReducer.groceryList,
-        // dishList: state.GroceryListReducer.dish,
+        groceryList: state.GroceryListReducer.groceryList,
+        dishList: state.GroceryListReducer.dish,
     }
 }
 

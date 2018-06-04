@@ -23,6 +23,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "chai": "^4.1.2",
+    "dotenv": "^5.0.1",
     "jest": "^23.0.1",
     "jest-cli": "^23.0.1",
     "mocha": "^5.1.1"
