@@ -123,7 +123,6 @@ export function addFoodItem(item) {
 
   // remove current select item from dishList
 function removeFoodItemSuccess(item) {
-    console.log("removefooditem succes", item)
     return {
         type: 'REMOVE_FOOD_ITEM_SUCCESS',
         removeItem: item
@@ -136,11 +135,32 @@ function removeFoodItemSuccess(item) {
 //     }
 // }
 
-export function removeFoodItem() {
+export function removeFoodItem(item) {
         return function(dispatch) {
-            dispatch(removeFoodItemSuccess())
+            dispatch(removeFoodItemSuccess(item))
         }
 }
+
+// UDPATE PORTION SIZE
+function updateFoodItemSuccess(item) {
+    return {
+        type: 'UPDATE_FOOD_ITEM_SUCCESS',
+        updateItem: item
+    }
+}
+
+export function updateFoodItem(item) {
+    return function(dispatch) {
+        dispatch(updateFoodItemSuccess(item))
+    }
+}
+
+// const b = {
+//     type
+//     ndbno: 12345,
+//     value: 12,
+    
+// }
 
 // GET NUTRITION
 function GetNutritionBegins() {
@@ -180,4 +200,5 @@ export function GetNutrition(dish) {
         })
     }
 }
+
 

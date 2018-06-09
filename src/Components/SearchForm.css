@@ -61,6 +61,7 @@
     background-repeat: no-repeat;
     -webkit-transition: width 0.8s ease-in-out;
     transition: width 0.8s ease-in-out;
+    cursor: pointer;
 }
 
 /* When the input field gets focus, change its width to 100% */

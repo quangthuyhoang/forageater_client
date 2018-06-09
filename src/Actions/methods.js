@@ -22,22 +22,45 @@ function postData(url, data) {
     referrer: 'no-referrer', // *client, no-referrer
   })
   .then(response => response.json()) // parses response to JSON
-}
+};
 
+// remove object  arrinay
 export function filterArrById(arr, val) {
   return arr.filter(function(el) {
     return el.ndbno !== val;
   })
-}
+};
+
+// replace update object in an array
+// export function updateArrById(arr, obj)
 
 
 const createArrayByKey = (key, arr) => {
-  return arr.map( el => {return { 'ndbno': el[key] }; })
-}
+  if( key === 'ndbno' ) {
+    return arr.map( el => {
+      return {
+        'ndbno': el[key]
+      };
+    })
+  }
+  if( key === 'portion' ) {
+    return arr.map( el => { 
+      return {
+        ndbno: el.ndbno,
+        value: el.value,
+        unit: el.unit
+      };
+    })
+  }
+};
 
 export const getDishNDBNoList = (dish) => {
   return createArrayByKey('ndbno', dish) 
-} 
+};
+
+const getFullDishList = (dish) => {
+  return createArrayByKey('portion', dish)
+};
 
 const getBaseURL = () => {
   return 'https://forageater-api.herokuapp.com/';
@@ -57,7 +80,8 @@ export const apiFetchGroceryList = (db, query) => {
 }
 
 export const apiFetchNutritionPost = (arr) => {
-  let b = getDishNDBNoList(arr)
+  // let b = getDishNDBNoList(arr)
+  let b = getFullDishList(arr);
   
   let url = 'https://forageater-api.herokuapp.com/';
   return fetch( `${url}api/nutrition`, {

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import GroceryContainer from './Containers/GroceryContainer';
 import ShowNutritionContainer from './Containers/ShowNutritionContainer';
 import SearchForm from './Components/SearchForm';
+import KitchenContainer from './Containers/KitchenContainer';
 import './App.css';
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
 
@@ -44,13 +45,13 @@ class App extends Component {
       <div className="App">
       {/* Menu Links */}
       
-      <ul className="navbar ">
-        <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
-        <li className="nav-item"><Link className="nav-link" to="/grocery">Grocery</Link></li>
-        <li className="nav-item"><Link className="nav-link" to="/meal">Meal</Link></li>
+      <ul className="navbar">
+        {/* <li className="nav-item "><Link className="nav-link" to="/">Home</Link></li> */}
+        <li className="nav-item "><Link className="nav-link" to="/grocery">Grocery</Link></li>
+        <li className="nav-item "><Link className="nav-link" to="/kitchen">Kitchen</Link></li>
+        <li className="nav-item "><Link className="nav-link" to="/meal">Meal</Link></li>
       </ul>
-    
-        {/* <hr/> */}
+
 
       {/*Routes will go here */}
       <Route exact={true} path="/" render={() => {
@@ -69,7 +70,7 @@ class App extends Component {
         )
       }} />
 
-      {/* <Route  path="/grocery" component={GroceryContainer} /> */}
+      <Route  path="/kitchen" component={KitchenContainer} />
 
       <Route  path="/meal" component={ShowNutritionContainer} />
       </div>

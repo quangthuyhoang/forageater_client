@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
-import { filterArrById } from '../Actions/methods'
+import { filterArrById } from '../Actions/methods';
+import seed from '../Constants/seed';
 
 const initState = {
     query: "",
     groceryList: [],
     groceryListSelect: {},
-    dish: [],
+    dish: seed.foodList,
     dishItemSelect: {},
     dishNutrition: {},
     message: {},
@@ -72,7 +73,8 @@ function GroceryListReducer(state = initState, action) {
 
         case 'REMOVE_FOOD_ITEM_SUCCESS': {
             // var currDish = ;
-            let newDish = filterArrById([...state.dish], state.dishItemSelect.ndbno)
+            // let newDish = filterArrById([...state.dish], state.dishItemSelect.ndbno)
+            let newDish = filterArrById([...state.dish], action.removeItem.ndbno)
             return {
                 ...state,
                 dish: newDish

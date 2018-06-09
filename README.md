@@ -9,3 +9,4 @@ User Story:
 6. [x] Modal searchbox will disapear once user has searched for something
 7. [ ] Loading animation after searching for food
 8. [ ] Have input serving size
+9. [ ] Have setting control for different standard measurement size... metric vs american
