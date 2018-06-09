@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../App.css';
 import './SearchForm.css';
 
 const SearchIcon = (props, onClick, onBlur) => {
@@ -39,7 +40,7 @@ class SearchForm extends Component {
 
     updateClass() {
         if(this.state.focus || this.props.query || this.props.activeFocus) {
-            return "jumbotron md-hide";
+            return "md-hide banner-theme";
         } else {
             return "logo-curtain md-show"
         }
@@ -54,29 +55,29 @@ class SearchForm extends Component {
     }
 
     render() {
-        let renderSomething;
+        let searchBox;
         if(this.state.focus || this.props.query || this.props.activeFocus) {
-            renderSomething = (
+            searchBox = (
                 <div className="searchform">
-              
-                    <input  name="search" id="query" onFocus={this.onFocus} onBlur={this.onBlur} onChange={this.inputHandler} onKeyUp={(e) => {this.props.getGroceriesOnEnter(e)}} placeholder="raw chicken breast"></input>
+                    <input className="input-style banner-theme" name="search" id="query" onFocus={this.onFocus} 
+                    onBlur={this.onBlur} onChange={this.inputHandler} onKeyUp={(e) => {this.props.getGroceriesOnEnter(e)}} 
+                    placeholder="raw chicken breast"></input>
                     <button  onClick={(e)=> {this.props.getGroceries(e)}} >Search</button>
                 </div>
             )
         } else {
-            renderSomething = (
+            searchBox = (
                 <div className="searchform">
-         
-                    {/* {SearchIcon(this.renderSearchIcon(), this.onFocus)} */}
-                    <input type="text" name="search" id="query" onFocus={this.onFocus} onBlur={this.onBlur} onChange={this.inputHandler} onKeyUp={(e) => {this.props.getGroceriesOnEnter(e)}} placeholder="raw chicken breast"></input>
+                    <input type="text" name="search" id="query" onFocus={this.onFocus} onBlur={this.onBlur} onChange={this.inputHandler} 
+                    onKeyUp={(e) => {this.props.getGroceriesOnEnter(e)}} ></input>
                 </div>
             )
         }
         return (
-            <div>
+            <div className="searchform">
                 <div className={this.updateClass()}>
                     <h3 className="display-5">search for food</h3>
-                    {renderSomething}
+                    {searchBox}
                 </div>
             </div>
         )

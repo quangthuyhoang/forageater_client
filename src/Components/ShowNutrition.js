@@ -20,36 +20,6 @@ class ShowNutrition extends Component {
         )
     }
 
-    // renderError() {
-    //     return (
-    //         <div>
-    //             <h1>Error...</h1>
-    //         </div>
-    //     )
-    // }
-
-    // renderResults() {
-    //     console.log("test")
-    //     let params = Object.keys(seed3);
-    //     let NutritionComponentList = params.forEach(param => {
-    //         return NutritionComponent(param, this.props.dishNutrition[param])
-    //     })
-
-    //     return (
-    //         <div>
-    //             <div className="jumbotron">
-    //                 <h1 className="display-3">Show Nutrition Page</h1>
-    //             </div>
-    //             <p>Need to work with backend API to fetch nutrition to show here</p>
-    //             <div className="nutritionList">
-    //                 <ul className="list-group">
-    //                     {NutritionComponentList}
-    //                 </ul>
-    //             </div>
-    //         </div>
-    //     )
-    // }
-
     render() {
         var params = Object.keys(this.props.dishNutrition);       
         var NutritionComponentList = params.map( (param, i) => {
@@ -58,19 +28,16 @@ class ShowNutrition extends Component {
 
         if(this.props.loading) {
             return (
-                <div>
+                <div className="page">
                     <div className="jumbotron">
                         <h1 className="display-3">Show Nutrition Page</h1>
                     </div>
             
                     <div>
                         <h1>Loading...</h1>
-                        <div class="frame">
-                        <div class="center">
-                            <div class="dot-1"></div>
-                            <div class="dot-2"></div>
-                            <div class="dot-3"></div>
-                        </div>
+                        <div className="loading-container">
+                        <div className="loading"></div>
+                        <div id="loading-text">loading</div>
                         </div>
                     </div>
                 </div>
@@ -79,7 +46,7 @@ class ShowNutrition extends Component {
         
         if(!this.props.loading && !this.props.payload_arrived) {
             return (
-                <div>
+                <div className="page">
                     <div className="jumbotron">
                         <h1 className="display-3">Show Nutrition Page</h1>
                     </div>
@@ -91,19 +58,12 @@ class ShowNutrition extends Component {
             )
         } else {
             return (
-                <div>
+                <div className="page">
                     <div className="jumbotron">
                         <h1 className="display-3">Show Nutrition Page</h1>
                     </div>
     
                     <div className="nutritionList">
-                    {/* <div class="frame">
-                        <div class="center">
-                            <div class="dot-1"></div>
-                            <div class="dot-2"></div>
-                            <div class="dot-3"></div>
-                        </div>
-                        </div> */}
                         <ul className="list-group">
                             {NutritionComponentList}
                         </ul>

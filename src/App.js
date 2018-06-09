@@ -37,7 +37,6 @@ class App extends Component {
     }
   }
 
-
   render() {
     return (
       <Router>
@@ -56,19 +55,22 @@ class App extends Component {
       {/*Routes will go here */}
       <Route exact={true} path="/" render={() => {
         return (
-          <div className="jumbotron">
-            <h1 className="display-3">Home Page</h1>
+          <div className="page">
+            <h1 className="display-3 jumbotron">Home Page</h1>
           </div>
         )
       }} />
       <Route path="/grocery" render={() => {
         return (
-          <div>
-            <SearchForm className="md-show" inputHandler={this.inputHandler} query={this.state.query} getGroceries={this.getGroceries} getGroceriesOnEnter={this.getGroceriesOnEnter} activeFocus={(this.props.groceryList.length > 0)? true : false}/>        
+          <div className="page">
+            <SearchForm className="" inputHandler={this.inputHandler} query={this.state.query} getGroceries={this.getGroceries} getGroceriesOnEnter={this.getGroceriesOnEnter} activeFocus={(this.props.groceryList.length > 0)? true : false}/>        
             <GroceryContainer />
           </div>
         )
       }} />
+
+      {/* <Route  path="/grocery" component={GroceryContainer} /> */}
+
       <Route  path="/meal" component={ShowNutritionContainer} />
       </div>
       

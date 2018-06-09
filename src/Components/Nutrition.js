@@ -1,7 +1,6 @@
 import React from 'react';
 
 const NutritionComponent = ( param, info, index) => {
-    console.log("info",info)
     return (
         
         <li key={index} className="list-group-item list-group-item-action flex-column align-items-start soft-glow soft-glow-shadow bottom-spacing">

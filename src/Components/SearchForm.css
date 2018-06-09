@@ -1,3 +1,6 @@
+/* .page {
+    height: 100%;
+} */
 .logo-curtain {
     background: rgb(67, 0, 105);
     position: fixed;
@@ -40,18 +43,22 @@
     cursor:text;
 }
 
-input[type=text] {
-    width: 130px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 59px;
-    font-size: 16px;
-    background-color: white;
-    /* background-image: url('searchicon.png'); */
-    
-    background-position: 10px 10px; 
+.searchform .input-style {
+    /* background:black; */
+    outline: none;
+    border: none;
+    border-bottom: solid 1px white;
+}
+
+.searchform input[type=text] {
+    width: 80px;
+    font-size: 3em;
+    background-position: 0px 0px center;
+    outline: none;
+    border: none;
+    background: url(./images/binocular-white.svg);
+    text-align: center;
     background-repeat: no-repeat;
-    padding: 12px 20px 12px 40px;
     -webkit-transition: width 0.8s ease-in-out;
     transition: width 0.8s ease-in-out;
 }
