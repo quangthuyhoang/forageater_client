@@ -25,7 +25,7 @@ class Grocery extends Component {
             
               <div className="col-lg-5 col-sm-12 col-xs-12">
               <FoodListContainer name="Food Items" />
-              <Link to="/meal" ><button className="rightall btn btn-block btn-success" onClick={()=> {this.props.getNutrition(this.props.dishList)}}>Make A Dish</button></Link>
+              {/* <Link to="/meal" ><button className="rightall btn btn-block btn-success" onClick={()=> {this.props.getNutrition(this.props.dishList)}}>Make A Dish</button></Link> */}
               <Link to="/kitchen"><button className="rightall btn btn-block btn-warning" >Edit Portion</button></Link>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Kitchen from '../Components/Kitchen';
+import FoodItem from '../Components/FoodItem';
 import * as action from '../Actions/actions';
 import { bindActionCreators } from 'redux';
 
@@ -14,9 +14,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     removeFoodItem: bindActionCreators(action.removeFoodItem, dispatch),
-    getNutrition: bindActionCreators(action.GetNutrition, dispatch)
+    updateFoodItem: bindActionCreators(action.updateFoodItem, dispatch)
 })
 
-const KitchenContainer = connect(mapStateToProps, mapDispatchToProps)(Kitchen);
+const FoodItemContainer = connect(mapStateToProps, mapDispatchToProps)(FoodItem);
 
-export default KitchenContainer;
+export default FoodItemContainer;

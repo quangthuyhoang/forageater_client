@@ -1,4 +1,4 @@
-import { apiFetchNutritionPost } from './methods';
+import { apiFetchNutritionPost, updateArrById } from './methods';
 // const apiURL = "locahost";
 
 const getBaseURL = () => {
@@ -142,16 +142,17 @@ export function removeFoodItem(item) {
 }
 
 // UDPATE PORTION SIZE
-function updateFoodItemSuccess(item) {
+function updateFoodItemSuccess(updatedFoodList) {
     return {
         type: 'UPDATE_FOOD_ITEM_SUCCESS',
-        updateItem: item
+        updateFoodList: updatedFoodList
     }
 }
 
-export function updateFoodItem(item) {
+export function updateFoodItem(foodList, updatedItem) {
     return function(dispatch) {
-        dispatch(updateFoodItemSuccess(item))
+        const updatedFoodList = updateArrById(foodList, updatedItem)
+        dispatch(updateFoodItemSuccess(updatedFoodList))
     }
 }
 

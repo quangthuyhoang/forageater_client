@@ -1,18 +1,9 @@
 import { combineReducers } from 'redux';
 import { filterArrById } from '../Actions/methods';
-import seed from '../Constants/seed';
+import initState from './initState';
+// import UpdateFoodItemReducer from './UpdateFoodItemReducer';
 
-const initState = {
-    query: "",
-    groceryList: [],
-    groceryListSelect: {},
-    dish: seed.foodList,
-    dishItemSelect: {},
-    dishNutrition: {},
-    message: {},
-    loading: false,
-    payload_arrived: true,
-  }
+
 
 function GroceryListReducer(state = initState, action) {
     switch(action.type) {
@@ -119,8 +110,25 @@ function GroceryListReducer(state = initState, action) {
     }
 }
 
+function FoodItemReducer(state = initState, action) {
+    switch(action.type) {
+        case 'UPDATE_FOOD_ITEM_SUCCESS': {
+            return {
+                ...state,
+                dish: action.updateFoodList
+            }
+        }
+        default: {
+            return state;
+        }
+    }
+}
+
+// const FoodItemReducer = UpdateFoodItemReducer(initState, action)
+
 const NutritionApp = combineReducers({
-    GroceryListReducer
+    GroceryListReducer,
+    FoodItemReducer
 })
 
 export default NutritionApp;

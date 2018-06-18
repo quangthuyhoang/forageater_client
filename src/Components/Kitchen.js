@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import '../App.css';
-import FoodItem from './FoodItem';
-import seed from '../Constants/seed';
+import { Link } from 'react-router-dom';
+import FoodItemContainer from '../Containers/FoodItemContainer';
+
 
 
 class Kitchen extends Component {
@@ -12,7 +13,8 @@ class Kitchen extends Component {
         let foodList;
         if(this.props.dishList) {
            foodList =  this.props.dishList.map( (item, index) => {
-                return <FoodItem key={index} item={item} method={this.props.removeFoodItem} index={index} />
+                return <FoodItemContainer key={index} item={item} index={index} />
+                // return <FoodItem key={index} item={item} method={this.props.removeFoodItem} index={index} />
             })
         }
         
@@ -24,6 +26,13 @@ class Kitchen extends Component {
                    {foodList}
                   </ul>
                 </div>
+                <br />
+                <Link to="/meal" >
+                    <button className="rightall btn btn-block btn-success" 
+                    onClick={()=> {this.props.getNutrition(this.props.dishList)}}>
+                        Make A Dish
+                    </button>
+                </Link>
             </div>
 
         )

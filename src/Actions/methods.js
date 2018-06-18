@@ -32,7 +32,17 @@ export function filterArrById(arr, val) {
 };
 
 // replace update object in an array
-// export function updateArrById(arr, obj)
+
+export function updateArrById(arr, obj) {
+  let results = arr.map(el => { 
+    if(obj['ndbno'] === el.ndbno) {
+      return obj;
+    }
+    return el;
+  })
+
+  return results;
+}
 
 
 const createArrayByKey = (key, arr) => {
