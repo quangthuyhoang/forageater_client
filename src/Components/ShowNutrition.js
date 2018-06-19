@@ -43,7 +43,7 @@ class ShowNutrition extends Component {
                 </div>
             )
         }
-        
+    
         if(!this.props.loading && !this.props.payload_arrived) {
             return (
                 <div className="page">

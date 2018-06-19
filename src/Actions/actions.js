@@ -1,19 +1,5 @@
-import { apiFetchNutritionPost, updateArrById } from './methods';
+import { apiFetchGroceryList, apiFetchNutritionPost, updateArrById } from './methods';
 // const apiURL = "locahost";
-
-const getBaseURL = () => {
- return 'https://forageater-api.herokuapp.com/';
-};
-
-
-const getStandardReferenceDB = (query) => {
-    return 'https://forageater-api.herokuapp.com/api/sr/' + query;
-};
-
-// function getBrandedDB(query) {
-//     return 'https://forageater-api.herokuapp.com/api/bl/' + query;
-// };
-
 
 export function handleInputChange(txt) {
     return {
@@ -47,7 +33,7 @@ function GetGroceryFailure(ErrorMessage) {
 export function GetGroceryList(query) {  
     return function(dispatch) {
         dispatch(GetGroceryBegins())
-        return fetch(getStandardReferenceDB(query)).then(res => res.json())
+        return apiFetchGroceryList('sr', query).then(res => res.json())
         .then(data => {
   
             // On Error
@@ -197,7 +183,7 @@ export function GetNutrition(dish) {
         })
         .catch(err => {
             console.log("error", err)
-            dispatch(GetGroceryFailure(err))
+            dispatch(GetNutritionFailure(err.toString()))
         })
     }
 }

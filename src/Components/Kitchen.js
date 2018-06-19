@@ -6,15 +6,14 @@ import FoodItemContainer from '../Containers/FoodItemContainer';
 
 
 class Kitchen extends Component {
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
     render() {
         let foodList;
         if(this.props.dishList) {
            foodList =  this.props.dishList.map( (item, index) => {
                 return <FoodItemContainer key={index} item={item} index={index} />
-                // return <FoodItem key={index} item={item} method={this.props.removeFoodItem} index={index} />
             })
         }
         

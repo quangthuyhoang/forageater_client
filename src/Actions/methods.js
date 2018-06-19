@@ -73,12 +73,14 @@ const getFullDishList = (dish) => {
 };
 
 const getBaseURL = () => {
-  return 'https://forageater-api.herokuapp.com/';
+  return 'http://localhost:4000/';
+  // return 'https://forageater-api.herokuapp.com/';
  };
 
 // Send POST request to API
 // [ {"ndbno": "15236"}, {"ndbno": "45253479"}, {"ndbno": "45362799"} ]
 export const apiFetchGroceryList = (db, query) => {
+
   return fetch(getBaseURL() + 'api/' + db + '/' + query, {
     method: 'GET',
     mode: 'cors',
@@ -91,9 +93,9 @@ export const apiFetchGroceryList = (db, query) => {
 
 export const apiFetchNutritionPost = (arr) => {
   // let b = getDishNDBNoList(arr)
-  let b = getFullDishList(arr);
+  // let b = getFullDishList(arr);
   
-  let url = 'https://forageater-api.herokuapp.com/';
+  let url = getBaseURL();
   return fetch( `${url}api/nutrition`, {
   method: 'POST',
   mode: 'cors',
@@ -102,7 +104,7 @@ export const apiFetchNutritionPost = (arr) => {
     'Accept': 'application/json',
     'Content-Type': 'application/json; charset=utf-8',
   },
-  body: JSON.stringify(b)
+  body: JSON.stringify(arr)
 })
 }
 
