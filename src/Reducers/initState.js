@@ -4,7 +4,7 @@ const initState = {
     query: "",
     groceryList: [],
     groceryListSelect: {},
-    dish: seed.foodList,
+    dish: [],
     dishItemSelect: {},
     dishNutrition: {},
     message: {},

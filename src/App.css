@@ -149,3 +149,9 @@ li > a:active {
 	visibility: visible;
 }
 
+/* general */
+
+.red {
+  background-color: red;
+}
+

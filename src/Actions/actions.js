@@ -8,7 +8,6 @@ export function handleInputChange(txt) {
     }
 }
 
-
 // GET Grocery LIST ACTION
 const GetGroceryBegins = () => ({
     type: 'GET_GROCERY_BEGINS'
