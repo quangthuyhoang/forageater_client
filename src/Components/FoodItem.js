@@ -20,6 +20,11 @@ class FoodComponent extends Component {
   }
 
   inputHandler(e) {
+    // if (e.target.value < 0) {
+    //   this.setState({ value: 0 }, () => {
+    //     alert('input value must be positive')
+    //   })
+    // }
     this.setState({ value: e.target.value }, () => {
       console.log(this.state.value)
     })
@@ -34,9 +39,10 @@ class FoodComponent extends Component {
     this.setState({ showhideEditForm: css });
   }
   updateFoodItem() {
-    if (this.state.value.length < 1) {
+    if (this.state.value.length < 1 || this.state.value < 0) {
       this.renderErrorMsg()
     }
+    
     if (this.state.value.length > 0 && typeof Number(this.state.value) === 'number') {
       let newItem = this.props.item;
 
@@ -59,7 +65,8 @@ class FoodComponent extends Component {
 
   renderErrorMsg() {
     // pop messsage
-    console.log("need to enter number")
+    alert("need to enter a positive number")
+    this.setState({value: ""})
   }
 
   render() {

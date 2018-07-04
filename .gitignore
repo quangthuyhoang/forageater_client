@@ -18,6 +18,7 @@
 .babelrc
 /src/Constants/env.js
 /src/.env
+/typescript
 
 
 npm-debug.log*

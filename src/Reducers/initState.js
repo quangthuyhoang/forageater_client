@@ -1,5 +1,3 @@
-import seed from '../Constants/seed';
-
 const initState = {
     query: "",
     groceryList: [],

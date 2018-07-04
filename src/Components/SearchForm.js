@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import '../App.css';
 import './SearchForm.css';
 
-const SearchIcon = (props, onClick, onBlur) => {
-    return <i className={props} onClick={onClick}></i>
-}
+// const SearchIcon = (props, onClick, onBlur) => {
+//     return <i className={props} onClick={onClick}></i>
+// }
 
 class SearchForm extends Component {
     constructor(props) {
