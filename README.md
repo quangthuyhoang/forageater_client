@@ -8,5 +8,7 @@ User Story:
 5. [x] Search for Food page has animated search box and will change on active
 6. [x] Modal searchbox will disapear once user has searched for something
 7. [ ] Loading animation after searching for food
-8. [ ] Have input serving size
+8. [x] Have input serving size
 9. [ ] Have setting control for different standard measurement size... metric vs american
+10. [ ] Cross browser testing
+11. [ ] Routing optimization for gh-pages
