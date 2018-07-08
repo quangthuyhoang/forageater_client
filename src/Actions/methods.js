@@ -73,9 +73,9 @@ const getFullDishList = (dish) => {
 };
 
 const getBaseURL = () => {
-  return 'http://localhost:4000/';
+  // return 'http://localhost:4000/';
 
-  // return 'https://forageater-api.herokuapp.com/';
+  return 'https://forageater-api.herokuapp.com/';
  };
 
 // Send POST request to API

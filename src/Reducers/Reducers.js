@@ -17,7 +17,7 @@ function GroceryListReducer(state = initState, action) {
             return {
                 ...state,
                 groceryList: action.groceryList,
-                loading: false,
+                loading: false
             }
         }
 

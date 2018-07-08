@@ -7,7 +7,19 @@ import { Link } from 'react-router-dom';
 
 
 class Grocery extends Component {
+    constructor(props){
+        super(props);
+        this._touchStart = this._touchStart.bind(this);
+    }
 
+    _touchStart(e) {
+        e.preventDefault();
+        if(this.props.groceryListSelect.name) {
+            return this.props.addFoodItem(this.props.groceryListSelect);
+        } else {
+            return "";
+        }
+    }
     render() {
 
         return (
@@ -18,7 +30,11 @@ class Grocery extends Component {
                 <FoodListContainer name="Select One"/>
               </div>
               <div className="multiselect-controls col-lg-2 col-sm-12 col-xs-12">
-              <button className="rightall btn btn-block btn-primary" onClick={ () =>{(this.props.groceryListSelect.name) ? this.props.addFoodItem(this.props.groceryListSelect) : ""} }>ADD</button>
+              <button className="rightall btn btn-block btn-primary" 
+                onTouchStart={e => this._touchStart(e)}
+                onClick={ () =>{this.props.groceryListSelect.name ?  this.props.addFoodItem(this.props.groceryListSelect) : ""} }
+                onTouchEnd={e => e.preventDefault()}
+                >ADD</button>
               <button className="rightall btn btn-block btn-warning" onClick={() => {this.props.removeFoodItem(this.props.dishItemSelect)}}>REMOVE</button>
               
               </div>

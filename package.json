@@ -2,7 +2,9 @@
   "name": "forageat_client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://quangthuyhoang.github.io/forageater_client",
   "dependencies": {
+    "gh-pages": "^1.2.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
@@ -16,7 +18,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "mocha",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "babel-jest": "^23.0.1",

@@ -25,7 +25,9 @@ class Kitchen extends Component {
                 <br />
                 <Link to="/meal" >
                     <button className="rightall btn btn-block btn-success" 
-                    onClick={()=> {this.props.getNutrition(this.props.dishList)}}>
+                    onTouchStart={()=> { this.props.getNutrition(this.props.dishList)}}
+                    onClick={()=> {this.props.getNutrition(this.props.dishList)}}
+                    onTouchEnd={e => {e.preventDefault()}}>
                         Make A Dish
                     </button>
                 </Link>

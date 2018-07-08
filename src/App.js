@@ -46,7 +46,7 @@ class App extends Component {
       {/* Menu Links */}
       
       <ul className="navbar">
-        {/* <li className="nav-item "><Link className="nav-link" to="/">Home</Link></li> */}
+        <li className="nav-item "><Link className="nav-link" to="/">Home</Link></li>
         <li className="nav-item "><Link className="nav-link" to="/grocery">Grocery</Link></li>
         <li className="nav-item "><Link className="nav-link" to="/kitchen">Kitchen</Link></li>
         <li className="nav-item "><Link className="nav-link" to="/meal">Meal</Link></li>
@@ -57,7 +57,10 @@ class App extends Component {
       <Route exact={true} path="/" render={() => {
         return (
           <div className="page">
-            <h1 className="display-3 jumbotron">Home Page</h1>
+            <h1 className="display-4 jumbotron">Nutrition Web Application</h1>
+            {/* <div className="home-page-bg-img">
+              <img src={require('./assets/nutrition.jpg')} />
+            </div> */}
           </div>
         )
       }} />

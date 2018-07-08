@@ -2,8 +2,40 @@ import React, { Component } from 'react';
 import '../App.css';
 import './SearchForm.css';
 
-// const SearchIcon = (props, onClick, onBlur) => {
-//     return <i className={props} onClick={onClick}></i>
+// progress bar
+// class ProgressBar extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             progress: 0,
+//             interval: 5,
+//         }
+//     }
+
+//     componentDidMount() {
+//         this.interval = setInterval( ()=> updateBar(), 100)
+//     }
+//     componentWillUnmount() {
+//         clearInterval(this.interval);
+//       }
+
+//     updateBar() {
+//         if( progress < 100 ) {
+//             this.setState((prevState, props) =>{
+//                 progress: prevState.progress + this.state.interval
+//             })
+//         }
+//     }
+
+//     render() {
+//         return (
+//             <div class="wrapper">
+//                 <div id="bar">
+//                     <div id="progress"></div>
+//                 </div>
+//             </div>
+//         )
+//     }
 // }
 
 class SearchForm extends Component {
@@ -12,7 +44,7 @@ class SearchForm extends Component {
         this.state = {
             focus: false,
         }
-
+        
         this.onFocus = this.onFocus.bind(this);
         this.onBlur = this.onBlur.bind(this);
         this.updateClass = this.updateClass.bind(this);
