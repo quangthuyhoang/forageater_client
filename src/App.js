@@ -6,6 +6,8 @@ import SearchForm from './Components/SearchForm';
 import KitchenContainer from './Containers/KitchenContainer';
 import './App.css';
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import AutoCompletInput from './Components/input/index';
+import ItemTable from './Components/inventorytable/index';
 
 class App extends Component {
 
@@ -13,17 +15,30 @@ class App extends Component {
     super(props);
     this.state = {
       query: "",
+      upc: ""
     }
    
     this.inputHandler = this.inputHandler.bind(this);
+    this.upcHandler = this.upcHandler.bind(this);
     this.getGroceries = this.getGroceries.bind(this);
     this.getGroceriesOnEnter = this.getGroceriesOnEnter.bind(this);
-
+    this.getInventory = this.getInventory.bind(this);
   }
   // set query
   inputHandler(val) {
     // e.preventDefault();
     this.setState({query: val})
+  }
+
+  upcHandler(val) {
+    this.setState({upc: val}, () => {
+      console.log("clear input", this.state.upc);
+    })
+  }
+
+  // fetch API data for inventory mlab
+  getInventory () {
+    this.props.getInventoryList()
   }
 
   // // fetch API data for groceryList
@@ -39,6 +54,7 @@ class App extends Component {
   }
 
   render() {
+    const { inventoryList } = this.props;
     return (
       <Router>
         
@@ -58,6 +74,11 @@ class App extends Component {
         return (
           <div className="page">
             <h1 className="display-4 jumbotron">Nutrition Web Application</h1>
+            <AutoCompletInput 
+              upcHandler={this.upcHandler}
+            />
+            <button onClick={this.getInventory}>Test</button>
+            <ItemTable inventoryList={inventoryList}/>
             {/* <div className="home-page-bg-img">
               <img src={require('./assets/nutrition.jpg')} />
             </div> */}

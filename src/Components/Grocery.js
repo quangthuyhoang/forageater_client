@@ -10,15 +10,26 @@ class Grocery extends Component {
     constructor(props){
         super(props);
         this._touchStart = this._touchStart.bind(this);
+        this._addfood = this._addfood.bind(this);
     }
 
     _touchStart(e) {
-        e.preventDefault();
+        // e.preventDefault();
+        // alert('touch click', this.props.groceryListSelect.name)
         if(this.props.groceryListSelect.name) {
+            alert('add food item', this.props.groceryListSelect);
             return this.props.addFoodItem(this.props.groceryListSelect);
         } else {
             return "";
         }
+    }
+
+    _addfood = () => {
+        if(this.props.groceryListSelect.name) {
+           return this.props.addFoodItem(this.props.groceryListSelect);
+        }
+        return "";
+        
     }
     render() {
 
@@ -32,11 +43,13 @@ class Grocery extends Component {
               <div className="multiselect-controls col-lg-2 col-sm-12 col-xs-12">
               <button className="rightall btn btn-block btn-primary" 
                 onTouchStart={e => this._touchStart(e)}
-                onClick={ () =>{this.props.groceryListSelect.name ?  this.props.addFoodItem(this.props.groceryListSelect) : ""} }
+                onClick={this._addfood}
                 onTouchEnd={e => e.preventDefault()}
                 >ADD</button>
-              <button className="rightall btn btn-block btn-warning" onClick={() => {this.props.removeFoodItem(this.props.dishItemSelect)}}>REMOVE</button>
-              
+              <button 
+                className="rightall btn btn-block btn-warning" 
+                onClick={() => {
+                    this.props.removeFoodItem(this.props.dishItemSelect)}}>REMOVE</button>
               </div>
             
               <div className="col-lg-5 col-sm-12 col-xs-12">

@@ -94,7 +94,9 @@ class SearchForm extends Component {
                     <input className="input-style banner-theme" name="search" id="query" onFocus={this.onFocus} 
                     onBlur={this.onBlur} onChange={this.inputHandler} onKeyUp={(e) => {this.props.getGroceriesOnEnter(e)}} 
                     placeholder="raw chicken breast"></input>
-                    <button  onClick={(e)=> {this.props.getGroceries(e)}} >Search</button>
+                    <button  
+                        onClick={(e)=> {this.props.getGroceries(e)}} 
+                    >Search</button>
                 </div>
             )
         } else {

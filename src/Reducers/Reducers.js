@@ -110,14 +110,49 @@ function GroceryListReducer(state = initState, action) {
     }
 }
 
-function FoodItemReducer(state = initState, action) {
+const initInventoryState = {
+    upc: "",
+    loading: false,
+    currentItemId: "",
+    inventoryIdList: [],
+    currentInventory: []
+}
+
+function FoodItemReducer(state = initInventoryState, action) {
     switch(action.type) {
-        case 'UPDATE_FOOD_ITEM_SUCCESS': {
+        case 'GET_INVENTORY_BEGINS': {
             return {
                 ...state,
-                dish: action.updateFoodList
+                loading: true
             }
         }
+
+        case 'GET_INVENTORY_SUCCESS': {
+            const inventory = action.payload;
+            return {
+                ...state,
+                loading: false,
+                currentInventory: inventory
+            }
+        }
+
+        case 'GET_INVENTORY_FAILURE': {
+            return {
+                ...state,
+                loading: false,
+                message: {
+                    error: "Failure to get inventory from server"
+                }
+            }
+        }
+
+        case 'ADD_ITEM': {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+
         default: {
             return state;
         }

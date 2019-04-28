@@ -1,4 +1,4 @@
-import { apiFetchGroceryList, apiFetchNutritionPost, updateArrById } from './methods';
+import { apiFetchGroceryList, apiFetchNutritionPost, updateArrById, apiGetInventory } from './methods';
 // const apiURL = "locahost";
 
 export function handleInputChange(txt) {
@@ -187,4 +187,37 @@ export function GetNutrition(dish) {
     }
 }
 
+// Inventory
+const GetInventoryBegin = () => {
+    return {
+        type: 'GET_INVENTORY'
+    }
+}
+
+const GetInventorySuccess = (payload) => {
+    return {
+        type: 'GET_INVENTORY_SUCCESS',
+        payload: payload
+    }
+}
+
+const GetInventoryFailure = () => {
+    return {
+        type: 'GET_INVENTORY_FAIL'
+    }
+}
+
+export function getInventory() {
+    return function(dispatch) {
+        dispatch(GetInventoryBegin())
+        return apiGetInventory('Quang')
+        .then(data => {
+            if(data.errors) {
+                dispatch(GetInventoryFailure())
+            } else {
+                dispatch(GetInventorySuccess(data))
+            }
+        })
+    }
+}
 

@@ -68,9 +68,9 @@ export const getDishNDBNoList = (dish) => {
   return createArrayByKey('ndbno', dish) 
 };
 
-const getFullDishList = (dish) => {
-  return createArrayByKey('portion', dish)
-};
+// const getFullDishList = (dish) => {
+//   return createArrayByKey('portion', dish)
+// };
 
 const getBaseURL = () => {
   // return 'http://localhost:4000/';
@@ -109,3 +109,44 @@ export const apiFetchNutritionPost = (arr) => {
 })
 }
 
+/*
+* Inventory Async Methods 
+*/
+
+const inventoryUrl = 'https://grandiose-pine.glitch.me/';
+
+export const apiGetInventory = (name = 'quang') => {
+  return fetch(inventoryUrl + 'username/' + name, {
+        method: "GET", // *GET, POST, PUT, DELETE, etc.
+      })
+  .then(results => {
+    return results.json()
+  })
+}
+
+export const asyncAddInventory = (upc) => {
+  const inventory = {
+    upc: upc,
+    quantity: 1,
+    date: new Date().toLocaleDateString()
+  }
+
+  return fetch(inventoryUrl + 'item/create', {
+    method: 'POST',
+    body: JSON.stringify(inventory),
+		headers: {
+      'Content-Type': 'application/json'
+		}
+  })
+  .then(results => {
+    console.log("results", results)
+    return results.json()
+  })
+  // .then(data => {
+  //   console.log("add to table inventory row", data)
+  //   addRowToTable(inventory)
+  // })
+  // .catch(err => {
+  //   console.log("Error:", err);
+  // })
+}
