@@ -35,6 +35,7 @@
     "eslint-plugin-react": "^7.9.1",
     "jest": "^23.0.1",
     "jest-cli": "^23.0.1",
-    "mocha": "^5.1.1"
+    "mocha": "^5.1.1",
+    "underscore": "^1.9.1"
   }
 }

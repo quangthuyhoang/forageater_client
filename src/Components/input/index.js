@@ -31,7 +31,6 @@ export default class AutoCompletInput extends Component {
       this.props.upcHandler(e.target.value);
       e.target.value = "";
     }
-    
   };
 
   render() {

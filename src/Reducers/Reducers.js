@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { filterArrById } from '../Actions/methods';
 import initState from './initState';
+import { findWhere } from 'underscore';
 // import UpdateFoodItemReducer from './UpdateFoodItemReducer';
 
 
@@ -120,6 +121,12 @@ const initInventoryState = {
 
 function FoodItemReducer(state = initInventoryState, action) {
     switch(action.type) {
+        case 'SELECT_ID': {
+            return {
+                ...state,
+                currentItemId: action.payload
+            }
+        }
         case 'GET_INVENTORY_BEGINS': {
             return {
                 ...state,
@@ -128,11 +135,10 @@ function FoodItemReducer(state = initInventoryState, action) {
         }
 
         case 'GET_INVENTORY_SUCCESS': {
-            const inventory = action.payload;
             return {
                 ...state,
                 loading: false,
-                currentInventory: inventory
+                currentInventory: action.payload
             }
         }
 
@@ -146,10 +152,85 @@ function FoodItemReducer(state = initInventoryState, action) {
             }
         }
 
-        case 'ADD_ITEM': {
+        case 'ADD_INVENTORY': {
             return {
                 ...state,
                 loading: true
+            }
+        }
+
+        case 'ADD_INVENTORY_SUCCESS': {
+            const item = action.payload;
+            const { currentInventory } = state;
+            const matchedItem = findWhere(currentInventory, {upc: item.upc});
+            let newInventory = [];
+
+            if (matchedItem) {
+                newInventory = currentInventory.map(i => {
+                    if(i.upc === item.upc) {
+                        i.quantity = item.quantity;
+                    }
+                    return i;
+                })
+            } else {
+                newInventory = [...currentInventory, item];
+            }
+
+            return {
+                ...state,
+                loading: false,
+                currentInventory: newInventory
+            }
+        }
+
+        case 'ADD_INVENTORY_FAILURE': {
+            return {
+                ...state,
+                loading: false,
+                message: {
+                    error: "Failure to get inventory from server"
+                }
+            }
+        }
+
+        case 'EDIT_INVENTORY': {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+
+        case 'EDIT_INVENTORY_SUCCESS': {
+            const item = action.payload;
+            const { currentInventory } = state;
+            const matchedItem = findWhere(currentInventory, {upc: item.upc});
+            let newInventory = [];
+
+            if (matchedItem) {
+                newInventory = currentInventory.map(i => {
+                    if(i.upc === item.upc) {
+                        return item;
+                    }
+                    return i;
+                })
+            } else {
+                newInventory = [...currentInventory, item];
+            }
+
+            return {
+                ...state,
+                loading: false,
+                currentInventory: newInventory
+            }
+        }
+
+        case 'EDIT_INVENTORY_FAILURE': {
+            return {
+                ...state,
+                loading: false,
+                message: {
+                    error: "Failure to get inventory from server"
+                }
             }
         }
 

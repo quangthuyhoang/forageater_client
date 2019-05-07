@@ -1,4 +1,10 @@
-import { apiFetchGroceryList, apiFetchNutritionPost, updateArrById, apiGetInventory } from './methods';
+import { 
+    apiFetchGroceryList,
+    apiFetchNutritionPost, 
+    updateArrById, 
+    apiGetInventory,
+    asyncAddInventory 
+    } from './methods';
 // const apiURL = "locahost";
 
 export function handleInputChange(txt) {
@@ -187,7 +193,18 @@ export function GetNutrition(dish) {
     }
 }
 
-// Inventory
+// ================= Inventory =========================
+// ------------ SELECTED -----------
+export const SelectInventoryId = (id) => {
+    return function(dispatch) {
+        dispatch({
+            type: 'SELECT_ID',
+            payload: id
+        })
+    }
+}
+
+// ------------ GET ---------------
 const GetInventoryBegin = () => {
     return {
         type: 'GET_INVENTORY'
@@ -216,6 +233,76 @@ export function getInventory() {
                 dispatch(GetInventoryFailure())
             } else {
                 dispatch(GetInventorySuccess(data))
+            }
+        })
+    }
+}
+
+// ------------ ADD ITEM ---------------
+
+const AddInventoryBegin = () => {
+    return {
+        type: 'ADD_INVENTORY'
+    }
+}
+
+const AddInventorySuccess = (payload) => {
+    return {
+        type: 'ADD_INVENTORY_SUCCESS',
+        payload: payload
+    }
+}
+
+const AddInventoryFailure = () => {
+    return {
+        type: 'ADD_INVENTORY_FAIL'
+    }
+}
+
+export function addInventory(code) {
+    return function(dispatch) {
+        dispatch(AddInventoryBegin())
+        return asyncAddInventory(code)
+        .then(data => {
+            if(data.errors) {
+                dispatch(AddInventoryFailure())
+            } else {
+                dispatch(AddInventorySuccess(data))
+            }
+        })
+    }
+}
+
+// ------------ EDIT ITEM ---------------
+
+const EditInventoryBegin = () => {
+    return {
+        type: 'EDIT_INVENTORY'
+    }
+}
+
+const EditInventorySuccess = (payload) => {
+    return {
+        type: 'EDIT_INVENTORY_SUCCESS',
+        payload: payload
+    }
+}
+
+const EditInventoryFailure = () => {
+    return {
+        type: 'EDIT_INVENTORY_FAIL'
+    }
+}
+
+export function editInventory(code) {
+    return function(dispatch) {
+        dispatch(EditInventoryBegin())
+        // return asyncAddInventory(code)
+        .then(data => {
+            if(data.errors) {
+                dispatch(EditInventoryFailure())
+            } else {
+                dispatch(EditInventorySuccess(data))
             }
         })
     }

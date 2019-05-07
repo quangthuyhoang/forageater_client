@@ -20,9 +20,14 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 
 let counter = 0;
-function createData(name, quantity, calories, fat, carbs, protein) {
+// function createData(name, quantity, calories, fat, carbs, protein) {
+//   counter += 1;
+//   return { id: counter, name, quantity, calories, fat, carbs, protein };
+// }
+
+function createData(id, upc, quantity, date, createdAt) {
   counter += 1;
-  return { id: counter, name, quantity, calories, fat, carbs, protein };
+  return { id: id, upc, quantity, date, createdAt };
 }
 
 function createNewData(upc, quantity, date, createdAt) {
@@ -219,7 +224,7 @@ class EnhancedTable extends React.Component {
     order: 'asc',
     orderBy: 'date',
     selected: [],
-    data: [
+    data: 
       // createData('Cupcake', 3, 305, 3.7, 67, 4.3),
       // createData('Donut', 1, 452, 25.0, 51, 4.9),
       // createData('Eclair', 1, 262, 16.0, 24, 6.0),
@@ -233,13 +238,29 @@ class EnhancedTable extends React.Component {
       // createData('Marshmallow', 3, 318, 0, 81, 2.0),
       // createData('Nougat', 4, 360, 19.0, 9, 37.0),
       // createData('Oreo', 3, 437, 18.0, 63, 4.0),
-      createNewData("12345678",3, "May 15, 2019", "2019-03-26T00:42:56.040Z"),
-      createNewData("43432343",10, "May 10, 2019", "2019-03-26T00:42:56.040Z"),
-      createNewData("43432343",4, "May 16, 2019", "2019-03-26T00:42:56.040Z"),
-    ],
+      // createNewData("12345678",3, "May 15, 2019", "2019-03-26T00:42:56.040Z"),
+      // createNewData("43432343",10, "May 10, 2019", "2019-03-26T00:42:56.040Z"),
+      // createNewData("43432343",4, "May 16, 2019", "2019-03-26T00:42:56.040Z"),
+      this.props.inventoryList
+    ,
     page: 0,
     rowsPerPage: 5,
   };
+
+  componentWillReceiveProps(nextProps){
+    console.log("next props", nextProps)
+  }
+
+  onNewInventoryHandler = (inventoryList) => {
+    if (inventoryList.length < 1) {
+      return;
+    }
+    const updatedInventory = inventoryList.map(item => {
+      return createData(item.upc, item.quantity, item.date, item.createdAt)
+    });
+    return updatedInventory;
+    // this.setState({ data: updatedInventory })
+  }
 
   handleRequestSort = (event, property) => {
     const orderBy = property;
@@ -292,45 +313,17 @@ class EnhancedTable extends React.Component {
 
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
+  handleSelectId = id => this.props.selectInventoryId(id);
+
   render() {
     const { classes, inventoryList } = this.props;
     const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
-    // const dummyInventoryList = [
-    //     {
-    //       "upc": "12345678",
-    //       "quantity": 3,
-    //       "date": "May 15, 2019",
-    //       "createdAt":  "2019-03-26T00:42:56.040Z"
-    //   },
-    //   {
-    //     "upc": "43432343",
-    //     "quantity": 200,
-    //     "date": "May 15, 2019",
-    //     "createdAt": "2019-03-26T00:43:22.050Z"
-          
-    //   },
-    //   {
-    //     "upc": "43432343",
-    //     "quantity": 50,
-    //     "date": "May 15, 2018",
-    //     "createdAt": "2019-03-26T00:43:32.262Z"
-    //   }
-    // ];
-    // let modifyInventoryList = [];
+    const updatedInventory = inventoryList.map( (item, i ) => {
+      return createData(i, item.upc, item.quantity, item.date, item.createdAt)
+    });
 
-    // if (inventoryList.length > 0) {
-    //   modifyInventoryList = inventoryList.map(item => {
-    //     const { upc, quantity, date, createdAt } = item;
-    //     return createNewData(upc, quantity, date, createdAt);
-    //   })
-    // } else {
-    //   modifyInventoryList = dummyInventoryList.map(item => {
-    //     const { upc, quantity, date, createdAt } = item;
-    //     return createNewData(upc, quantity, date, createdAt);
-    //   });
-    // }
   
     return (
       <Paper className={classes.root}>
@@ -346,10 +339,11 @@ class EnhancedTable extends React.Component {
               rowCount={data.length}
             />
             <TableBody>
-              {stableSort(data, getSorting(order, orderBy))
+              {stableSort(updatedInventory, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
                   const isSelected = this.isSelected(n.id);
+         
                   return (
                     <TableRow
                       hover
@@ -370,6 +364,10 @@ class EnhancedTable extends React.Component {
                       <TableCell align="right">{n.quantity}</TableCell>
                       <TableCell align="right">{n.date}</TableCell>
                       <TableCell align="right">{n.createdAt}</TableCell>
+                      <span><button onClick={() => {
+                        this.handleSelectId(n.id)
+                        this.props.updateCurrentItemFunc(inventoryList, n.id)
+                      }}>Edit</button></span>
                       {/* <TableCell align="right">{n.protein}</TableCell> */}
                     </TableRow>
                   );

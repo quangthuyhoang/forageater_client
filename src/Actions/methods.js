@@ -142,11 +142,5 @@ export const asyncAddInventory = (upc) => {
     console.log("results", results)
     return results.json()
   })
-  // .then(data => {
-  //   console.log("add to table inventory row", data)
-  //   addRowToTable(inventory)
-  // })
-  // .catch(err => {
-  //   console.log("Error:", err);
-  // })
 }
+
