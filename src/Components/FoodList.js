@@ -14,7 +14,6 @@ class FoodSelectionList extends Component {
     selectItem(e){
         // e.preventDefault();
         let n = this.props.name
-        alert('picked', n)
         if(this.props.name === "Select One") {
             this.props.selectGroceryItem(e.target.value)
         } else {

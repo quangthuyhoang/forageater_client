@@ -224,7 +224,7 @@ class EnhancedTable extends React.Component {
     order: 'asc',
     orderBy: 'date',
     selected: [],
-    data: 
+    data: []
       // createData('Cupcake', 3, 305, 3.7, 67, 4.3),
       // createData('Donut', 1, 452, 25.0, 51, 4.9),
       // createData('Eclair', 1, 262, 16.0, 24, 6.0),
@@ -241,7 +241,7 @@ class EnhancedTable extends React.Component {
       // createNewData("12345678",3, "May 15, 2019", "2019-03-26T00:42:56.040Z"),
       // createNewData("43432343",10, "May 10, 2019", "2019-03-26T00:42:56.040Z"),
       // createNewData("43432343",4, "May 16, 2019", "2019-03-26T00:42:56.040Z"),
-      this.props.inventoryList
+      // this.props.inventoryList
     ,
     page: 0,
     rowsPerPage: 5,
@@ -274,6 +274,8 @@ class EnhancedTable extends React.Component {
   };
 
   handleSelectAllClick = event => {
+    const { data } = this.state;
+    console.log(data)
     if (event.target.checked) {
       this.setState(state => ({ selected: state.data.map(n => n.id) }));
       return;

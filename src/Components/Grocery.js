@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PointTarget from 'react-point'
 // import FoodList from './FoodList';
 import FoodListContainer from '../Containers/FoodListContainer';
 import '../App.css';
@@ -15,6 +16,7 @@ class Grocery extends Component {
 
     _touchStart(e) {
         // e.preventDefault();
+        console.log('e.touch', e.touches[0])
         // alert('touch click', this.props.groceryListSelect.name)
         if(this.props.groceryListSelect.name) {
             alert('add food item', this.props.groceryListSelect);
@@ -41,11 +43,15 @@ class Grocery extends Component {
                 <FoodListContainer name="Select One"/>
               </div>
               <div className="multiselect-controls col-lg-2 col-sm-12 col-xs-12">
-              <button className="rightall btn btn-block btn-primary" 
-                onTouchStart={e => this._touchStart(e)}
-                onClick={this._addfood}
-                onTouchEnd={e => e.preventDefault()}
-                >ADD</button>
+                <PointTarget onPoint={()=> {console.log("touch")}}>
+                    <button className="rightall btn btn-block btn-primary" 
+                    // onTouchStart={e => this._touchStart(e)}
+                    onClick={console.log("click")}
+                    // onClick={this._addfood}
+                    // onTouchEnd={e => e.preventDefault()}
+                    >ADD</button>
+                </PointTarget>
+              
               <button 
                 className="rightall btn btn-block btn-warning" 
                 onClick={() => {

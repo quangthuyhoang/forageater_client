@@ -3,7 +3,8 @@ import {
     apiFetchNutritionPost, 
     updateArrById, 
     apiGetInventory,
-    asyncAddInventory 
+    asyncAddInventory ,
+    asyncEditInventory
     } from './methods';
 // const apiURL = "locahost";
 
@@ -306,5 +307,9 @@ export function editInventory(code) {
             }
         })
     }
+}
+
+export function updateInventory(updatedItem) {
+    return asyncEditInventory(updatedItem._id, updatedItem.quantity)
 }
 

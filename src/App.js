@@ -8,12 +8,17 @@ import './App.css';
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import AutoCompletInput from './Components/input/index';
 import ItemTable from './Components/inventorytable/index';
+import {
+  asyncEditInventory
+} from './Actions/methods';
 
 function editItem (obj, key, val) {
   console.log("editItem")
   console.log(obj, key, val)
   return obj[key] = val;
 }
+
+
 
 class App extends Component {
 
@@ -37,6 +42,7 @@ class App extends Component {
     this.getGroceriesOnEnter = this.getGroceriesOnEnter.bind(this);
     this.getInventory = this.getInventory.bind(this);
     this.handleUpdatedCurrentItem = this.handleUpdatedCurrentItem.bind(this);
+    this.updateItemInDB = this.updateItemInDB.bind(this);
   }
   // set query
   inputHandler(val) {
@@ -78,10 +84,21 @@ class App extends Component {
     const localInventory = inventory;
     const currentId = id;
     if(showEdit) {
-      this.setState({currentItem: localInventory[currentId]}, () => {
+      this.setState({
+        currentItem: localInventory[currentId],
+        updatedItem: localInventory[currentId]
+      }, () => {
         console.log("test",localInventory[currentId])
       })
     }
+  }
+
+  updateItemInDB (item) {
+    console.log("saved", item._id, 'with qty', item.quantity);
+    asyncEditInventory(item._id, item.quantity)
+    .then(results => {
+      console.log("return edit results", results)
+    }) 
   }
 
   
@@ -119,20 +136,15 @@ class App extends Component {
               upcHandler={this.upcHandler}
             />
             <button onClick={this.getInventory}>Test</button>
+            <button onClick={() => {this.updateItemInDB(currentItem)}}>Save Changes</button>
             { showEdit && currentItem ? 
               <div>
-                <input name="upc" type="text" onChange={(e) => {
-                  this.editItemHandler(e.target.name, e.target.value)}} 
+                <input name="upc" type="text"
                 value={currentItem.upc}></input>
                 <input name="quantity" type="number" onChange={(e) => {
                   this.editItemHandler(e.target.name, e.target.value)}} 
                   value={currentItem.quantity}></input>
-                 <input name="date" type="text" onChange={(e) => {
-                  this.editItemHandler(e.target.name, e.target.value)}} 
-                  value={currentItem.date}></input>
-                {/* <input name="createdAt" type="text" onChange={(e) => {
-                  this.editItemHandler(e.target.name, e.target.value)}} 
-                  value={currentItem.createdAt}></input> */}
+              
               </div> :
               ''
             }

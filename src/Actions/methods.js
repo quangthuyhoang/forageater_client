@@ -144,3 +144,15 @@ export const asyncAddInventory = (upc) => {
   })
 }
 
+export const asyncEditInventory = (id, quantity) => {
+  return fetch(inventoryUrl + `/item/${id}/quantity/${quantity}`, {
+    method: 'PUT',
+		headers: {
+      'Content-Type': 'application/json'
+		}
+  })
+  .then(results => {
+    return results.json()
+  })
+}
+
