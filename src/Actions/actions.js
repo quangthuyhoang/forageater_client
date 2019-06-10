@@ -61,7 +61,8 @@ export function GetGroceryList(query) {
 function groceryItemSelect(item) {
     return {
         type: 'SELECT_GROCERY_ITEM',
-        groceryListSelect: JSON.parse(item)
+        // groceryListSelect: JSON.parse(item)
+        groceryListSelect: item
     }
 }
   
@@ -89,7 +90,8 @@ export function dishItemSelect(item) {
 
     return {
         type: "SELECT_DISH_ITEM",
-        dishItemSelect: JSON.parse(item)
+        // dishItemSelect: JSON.parse(item)
+        dishItemSelect: item
     }
 }
 
