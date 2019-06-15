@@ -17,7 +17,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     getFoodList: bindActionCreators(action.GetGroceryList, dispatch),
     getInventoryList: bindActionCreators(action.getInventory, dispatch),
     addInventory: bindActionCreators(action.addInventory, dispatch),
-    selectInventoryId: bindActionCreators(action.SelectInventoryId, dispatch)
+    selectInventoryId: bindActionCreators(action.SelectInventoryId, dispatch),
+    deleteManyInventory: bindActionCreators(action.deleteManyInventory, dispatch)
 })
 
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);

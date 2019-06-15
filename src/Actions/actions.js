@@ -4,7 +4,8 @@ import {
     updateArrById, 
     apiGetInventory,
     asyncAddInventory ,
-    asyncEditInventory
+    asyncEditInventory,
+    asyncDeleteManyInventory
     } from './methods';
 // const apiURL = "locahost";
 
@@ -335,12 +336,27 @@ const DeleteInventoryFailure = () => {
     }
 }
 
-export function deleteInventory(code) {
+export function deleteInventory(ids) {
+    return function(dispatch ,ids) {
+        dispatch(DeleteInventoryBegin())
+        return asyncDeleteManyInventory(ids)
+        .then(data => {
+            if(data.errors || data.n < 1) {
+                dispatch(DeleteInventoryFailure())
+            } else {
+                dispatch(DeleteInventorySuccess(data))
+            }
+        })
+    }
+}
+
+export function deleteManyInventory(ids) {
+ 
     return function(dispatch) {
         dispatch(DeleteInventoryBegin())
-        // return asyncAddInventory(code)
+        return asyncDeleteManyInventory(ids)
         .then(data => {
-            if(data.errors) {
+            if(data.errors || data.n < 1) {
                 dispatch(DeleteInventoryFailure())
             } else {
                 dispatch(DeleteInventorySuccess(data))

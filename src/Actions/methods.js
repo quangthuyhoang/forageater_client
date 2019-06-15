@@ -156,3 +156,29 @@ export const asyncEditInventory = (id, quantity) => {
   })
 }
 
+// export const asyncDeleteInventory = (id) => {
+//   return fetch(inventoryUrl + `/item/${id}`, {
+//     method: 'DELETE',
+// 		headers: {
+//       'Content-Type': 'application/json'
+// 		}
+//   })
+//   .then(results => {
+//     return results.json();
+//   })
+// }
+
+export const asyncDeleteManyInventory = (ids) => {
+  return fetch(inventoryUrl + `/items/delete`, {
+    method: 'POST',
+    body: JSON.stringify({ids: ids}),
+    headers: {
+      'Content-Type': 'application/json'
+		}
+  })
+  .then(results => {
+    return results.json();
+  })
+}
+
+

@@ -319,7 +319,7 @@ class EnhancedTable extends React.Component {
 
   handleDeleteItem = () => {
     const { selected } = this.state;
-    console.log("delete", selected);
+    this.props.deleteItemsFunc(selected);
   }
 
   render() {

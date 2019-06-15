@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { filterArrById } from '../Actions/methods';
 import initState from './initState';
-import { findWhere } from 'underscore';
+import { findWhere, findIndex } from 'underscore';
 // import UpdateFoodItemReducer from './UpdateFoodItemReducer';
 
 
@@ -230,6 +230,34 @@ function FoodItemReducer(state = initInventoryState, action) {
                 loading: false,
                 message: {
                     error: "Failure to get inventory from server"
+                }
+            }
+        }
+
+        case 'DELETE_INVENTORY_SUCCESS': {
+        
+            const { deletedIds } = action.payload;
+            const { currentInventory } = state;
+
+            const newInventory = currentInventory.filter(item => { 
+                if(deletedIds.indexOf(item._id) == -1) {
+                    return item;
+                }
+            });
+
+            return {
+                ...state,
+                loading: false,
+                currentInventory: newInventory
+            }
+        }
+
+        case 'DELETE_INVENTORY_FAILURE': {
+            return {
+                ...state,
+                loading: false,
+                message: {
+                    error: "Failure to delete inventory from server"
                 }
             }
         }

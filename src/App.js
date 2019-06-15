@@ -12,6 +12,8 @@ import {
   asyncEditInventory
 } from './Actions/methods';
 
+import * as actions from './Actions/actions';
+
 function editItem (obj, key, val) {
   console.log("editItem")
   console.log(obj, key, val)
@@ -43,6 +45,7 @@ class App extends Component {
     this.getInventory = this.getInventory.bind(this);
     this.handleUpdatedCurrentItem = this.handleUpdatedCurrentItem.bind(this);
     this.updateItemInDB = this.updateItemInDB.bind(this);
+    this.deleteItemHandler = this.deleteItemHandler.bind(this);
   }
   // set query
   inputHandler(val) {
@@ -101,6 +104,19 @@ class App extends Component {
     }) 
   }
 
+  deleteItemHandler = (deleteIndexes) => {
+    const { inventoryList, deleteManyInventory } = this.props;
+    const deleteIds = inventoryList
+    .filter((item, index) => deleteIndexes.indexOf(index) > -1)
+    .map(i => i._id);
+    
+    console.log("deleted", deleteIds);
+    console.log("props", inventoryList, inventoryList[deleteIds[0]])
+    // actions.deleteInventory(deleteIds);
+    // Need to be passed through containers for dispatch binding
+    deleteManyInventory(deleteIds);
+  }
+
   
   render() {
     const { 
@@ -152,6 +168,7 @@ class App extends Component {
             inventoryList={inventoryList} 
             selectInventoryId={selectInventoryId}
             updateCurrentItemFunc={this.handleUpdatedCurrentItem}
+            deleteItemsFunc={this.deleteItemHandler}
             />
             {/* <div className="home-page-bg-img">
               <img src={require('./assets/nutrition.jpg')} />
