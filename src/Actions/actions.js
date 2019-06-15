@@ -315,3 +315,36 @@ export function updateInventory(updatedItem) {
     return asyncEditInventory(updatedItem._id, updatedItem.quantity)
 }
 
+// ------------ DELETE ITEM ---------------
+const DeleteInventoryBegin = () => {
+    return {
+        type: 'DELETE_INVENTORY'
+    }
+}
+
+const DeleteInventorySuccess = (payload) => {
+    return {
+        type: 'DELETE_INVENTORY_SUCCESS',
+        payload: payload
+    }
+}
+
+const DeleteInventoryFailure = () => {
+    return {
+        type: 'DELETE_INVENTORY_FAIL'
+    }
+}
+
+export function deleteInventory(code) {
+    return function(dispatch) {
+        dispatch(DeleteInventoryBegin())
+        // return asyncAddInventory(code)
+        .then(data => {
+            if(data.errors) {
+                dispatch(DeleteInventoryFailure())
+            } else {
+                dispatch(DeleteInventorySuccess(data))
+            }
+        })
+    }
+}

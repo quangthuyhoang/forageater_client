@@ -160,7 +160,7 @@ const toolbarStyles = theme => ({
 });
 
 let EnhancedTableToolbar = props => {
-  const { numSelected, classes } = props;
+  const { numSelected, classes, handleDeleteItem } = props;
 
   return (
     <Toolbar
@@ -183,7 +183,7 @@ let EnhancedTableToolbar = props => {
       <div className={classes.actions}>
         {numSelected > 0 ? (
           <Tooltip title="Delete">
-            <IconButton aria-label="Delete">
+            <IconButton aria-label="Delete" onClick={()=>{handleDeleteItem()}}>
               <DeleteIcon />
             </IconButton>
           </Tooltip>
@@ -317,6 +317,11 @@ class EnhancedTable extends React.Component {
 
   handleSelectId = id => this.props.selectInventoryId(id);
 
+  handleDeleteItem = () => {
+    const { selected } = this.state;
+    console.log("delete", selected);
+  }
+
   render() {
     const { classes, inventoryList } = this.props;
     const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
@@ -329,7 +334,7 @@ class EnhancedTable extends React.Component {
   
     return (
       <Paper className={classes.root}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} handleDeleteItem={this.handleDeleteItem}/>
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
@@ -370,6 +375,9 @@ class EnhancedTable extends React.Component {
                         this.handleSelectId(n.id)
                         this.props.updateCurrentItemFunc(inventoryList, n.id)
                       }}>Edit</button></span>
+                      {/* <span>
+                        <button onClick={()=> {this.handleDeleteItem(n.id)}}>Delete</button>
+                      </span> */}
                       {/* <TableCell align="right">{n.protein}</TableCell> */}
                     </TableRow>
                   );
