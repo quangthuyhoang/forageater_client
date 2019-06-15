@@ -44,14 +44,8 @@ class Grocery extends Component {
                 <FoodListContainer name="Select One"/>
               </div>
               <div className="multiselect-controls col-lg-2 col-sm-12 col-xs-12">
-                <PointTarget 
-                onPoint={this._addfood}
-                >
+                <PointTarget onPoint={this._addfood}>
                     <button className="rightall btn btn-block btn-primary" 
-                    // onTouchStart={e => this._touchStart(e)}
-                    
-                    // onClick={this._addfood}
-                    // onTouchEnd={e => e.preventDefault()}
                     >ADD</button>
                 </PointTarget>
               
@@ -67,6 +61,7 @@ class Grocery extends Component {
               <Link to="/kitchen"><button className="rightall btn btn-block btn-warning" >Edit Portion</button></Link>
               </div>
             </div>
+            {/* TODO:  create success and failure notification that data load */}
             </div>
         )
     }
