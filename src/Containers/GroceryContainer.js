@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
         dishItemSelect: state.GroceryListReducer.dishItemSelect,
         groceryList: state.GroceryListReducer.groceryList,
         dishList: state.GroceryListReducer.dish,
-
+        loading: state.GroceryListReducer.loading,
         dishNutrition: state.GroceryListReducer.dishNutrition,
     }
 }

@@ -5,10 +5,10 @@ import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
+import Grid from '@material-ui/core/Grid';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
+
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -19,20 +19,29 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 
+import EnhancedTableHead from './../EnhancedTableToolbar/EnhancedTableToolbar';
+
+// Mock Data
+
+const mockData = [
+  {name: "apple", createdAt: "2019-03-28T00:04:44.149Z", date: "May 15, 2018", quantity: 1, upc: "00000000", updatedAt: "2019-03-28T00:04:44.149Z", _id: "1c9c0f9cc54b32021439b57b"},
+  {name: "orange", createdAt: "2019-03-28T00:04:44.149Z", date: "May 15, 2018", quantity: 5, upc: "00000001", updatedAt: "2019-03-28T00:04:44.149Z", _id: "2c9c0f9cc54b32021439b57b"},
+  {name: "pear", createdAt: "2019-03-28T00:04:44.149Z", date: "May 15, 2018", quantity: 50, upc: "00000002", updatedAt: "2019-03-28T00:04:44.149Z", _id: "3c9c0f9cc54b32021439b57b"},
+  {name: "banana", createdAt: "2019-03-28T00:04:44.149Z", date: "May 15, 2018", quantity: 50, upc: "00000003", updatedAt: "2019-03-28T00:04:44.149Z", _id: "4c9c0f9cc54b32021439b57b"},
+  {name: "pineapple", createdAt: "2019-03-28T00:04:44.149Z", date: "May 15, 2018", quantity: 50, upc: "00000004", updatedAt: "2019-03-28T00:04:44.149Z", _id: "5c9c0f9cc54b32021439b57b"},
+  {name: "apple-pen", createdAt: "2019-03-28T00:04:44.149Z", date: "May 15, 2018", quantity: 50, upc: "00000005", updatedAt: "2019-03-28T00:04:44.149Z", _id: "6c9c0f9cc54b32021439b57b"}
+]
+
 let counter = 0;
-// function createData(name, quantity, calories, fat, carbs, protein) {
-//   counter += 1;
-//   return { id: counter, name, quantity, calories, fat, carbs, protein };
-// }
 
 function createData(id, upc, quantity, date, createdAt) {
   counter += 1;
   return { id: id, upc, quantity, date, createdAt };
 }
 
-function createNewData(upc, quantity, date, createdAt) {
+const createNewData = (id, upc, name, quantity, date, createdAt) => {
   counter += 1;
-  return { id: counter, upc, quantity, date, createdAt };
+  return { id, upc, name, quantity, date, createdAt };
 }
 
 function desc(a, b, orderBy) {
@@ -59,80 +68,6 @@ function getSorting(order, orderBy) {
   return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
 }
 
-const newrows = [
-
-  { id: 'upc', numeric: false, disablePadding: true, label: 'upc' },
-  { id: 'quantity', numeric: false, disablePadding: false, label: 'quantity (units)' },
-  { id: 'date', numeric: false, disablePadding: true, label: 'date - manual' },
-  { id: 'creatdeAt', numeric: false, disablePadding: true, label: 'create date' }
-]
-
-const rows = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
-  { id: 'quantity', numeric: true, disablePadding: true, label: 'Quantity' },
-  { id: 'calories', numeric: true, disablePadding: false, label: 'Calories' }, 
-  { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
-  { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-  { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
-];
-
-class EnhancedTableHead extends React.Component {
-  createSortHandler = property => event => {
-    this.props.onRequestSort(event, property);
-  };
-
-  render() {
-    const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
-
-    return (
-      <TableHead>
-        <TableRow>
-          <TableCell padding="checkbox">
-            <Checkbox
-              indeterminate={numSelected > 0 && numSelected < rowCount}
-              checked={numSelected === rowCount}
-              onChange={onSelectAllClick}
-            />
-          </TableCell>
-          {newrows.map(
-            row => (
-              <TableCell
-                key={row.id}
-                align={row.numeric ? 'right' : 'left'}
-                padding={row.disablePadding ? 'none' : 'default'}
-                sortDirection={orderBy === row.id ? order : false}
-              >
-                <Tooltip
-                  title="Sort"
-                  placement={row.numeric ? 'bottom-end' : 'bottom-start'}
-                  enterDelay={300}
-                >
-                  <TableSortLabel
-                    active={orderBy === row.id}
-                    direction={order}
-                    onClick={this.createSortHandler(row.id)}
-                  >
-                    {row.label}
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-            ),
-            this,
-          )}
-        </TableRow>
-      </TableHead>
-    );
-  }
-}
-
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
 
 const toolbarStyles = theme => ({
   root: {
@@ -238,9 +173,6 @@ class EnhancedTable extends React.Component {
       // createData('Marshmallow', 3, 318, 0, 81, 2.0),
       // createData('Nougat', 4, 360, 19.0, 9, 37.0),
       // createData('Oreo', 3, 437, 18.0, 63, 4.0),
-      // createNewData("12345678",3, "May 15, 2019", "2019-03-26T00:42:56.040Z"),
-      // createNewData("43432343",10, "May 10, 2019", "2019-03-26T00:42:56.040Z"),
-      // createNewData("43432343",4, "May 16, 2019", "2019-03-26T00:42:56.040Z"),
       // this.props.inventoryList
     ,
     page: 0,
@@ -327,12 +259,15 @@ class EnhancedTable extends React.Component {
     const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
-    const updatedInventory = inventoryList.map( (item, i ) => {
-      return createData(i, item.upc, item.quantity, item.date, item.createdAt)
+    let mockInventoryList = mockData;
+
+    const updatedInventory = mockInventoryList.map( (item, i ) => {
+      return createNewData(i, item.upc, item.name, item.quantity, item.date, item.createdAt)
     });
 
   
     return (
+  
       <Paper className={classes.root}>
         <EnhancedTableToolbar numSelected={selected.length} handleDeleteItem={this.handleDeleteItem}/>
         <div className={classes.tableWrapper}>
@@ -367,18 +302,14 @@ class EnhancedTable extends React.Component {
                       {/* <TableCell component="th" scope="row" padding="none">
                         {n.name}
                       </TableCell> */}
-                      <TableCell align="right">{n.upc}</TableCell>
-                      <TableCell align="right">{n.quantity}</TableCell>
-                      <TableCell align="right">{n.date}</TableCell>
-                      <TableCell align="right">{n.createdAt}</TableCell>
+                      <TableCell align="left">{n.name}</TableCell>
+                      <TableCell align="left">{n.quantity}</TableCell>
+                      {/* <TableCell align="right">{n.date}</TableCell> */}
+                      {/* <TableCell align="right">{n.createdAt}</TableCell> */}
                       <span><button onClick={() => {
                         this.handleSelectId(n.id)
                         this.props.updateCurrentItemFunc(inventoryList, n.id)
                       }}>Edit</button></span>
-                      {/* <span>
-                        <button onClick={()=> {this.handleDeleteItem(n.id)}}>Delete</button>
-                      </span> */}
-                      {/* <TableCell align="right">{n.protein}</TableCell> */}
                     </TableRow>
                   );
                 })}
@@ -406,6 +337,7 @@ class EnhancedTable extends React.Component {
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
         />
       </Paper>
+ 
     );
   }
 }

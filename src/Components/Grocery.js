@@ -5,6 +5,7 @@ import FoodListContainer from '../Containers/FoodListContainer';
 import '../App.css';
 import './Grocery.css';
 import { Link } from 'react-router-dom';
+import CircularUnderLoad from '../Components/Loader/CircularUnderLoad';
 
 
 class Grocery extends Component {
@@ -16,10 +17,7 @@ class Grocery extends Component {
 
     _touchStart(e) {
         e.preventDefault();
-        console.log('e.touch', e.touches[0])
-        // alert('touch click', this.props.groceryListSelect.name)
         if(this.props.groceryListSelect.name) {
-            alert('add food item', this.props.groceryListSelect);
             return this.props.addFoodItem(this.props.groceryListSelect);
         } else {
             return "";
@@ -27,7 +25,6 @@ class Grocery extends Component {
     }
 
     _addfood = () => {
-        console.log(this.props.groceryListSelect.name)
         if(this.props.groceryListSelect.name) {
            return this.props.addFoodItem(this.props.groceryListSelect);
         }
@@ -35,7 +32,11 @@ class Grocery extends Component {
         
     }
     render() {
-
+        const {
+            dishItemSelect,
+            removeFoodItem,
+            loading
+        } = this.props;
         return (
             <div className="food-selection">
             <div className="row">
@@ -52,7 +53,7 @@ class Grocery extends Component {
               <button 
                 className="rightall btn btn-block btn-warning" 
                 onClick={() => {
-                    this.props.removeFoodItem(this.props.dishItemSelect)}}>REMOVE</button>
+                    removeFoodItem(dishItemSelect)}}>REMOVE</button>
               </div>
             
               <div className="col-lg-5 col-sm-12 col-xs-12">
@@ -61,7 +62,9 @@ class Grocery extends Component {
               <Link to="/kitchen"><button className="rightall btn btn-block btn-warning" >Edit Portion</button></Link>
               </div>
             </div>
-            {/* TODO:  create success and failure notification that data load */}
+            {
+            (loading) ? CircularUnderLoad() : ""
+            }
             </div>
         )
     }

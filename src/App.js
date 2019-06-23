@@ -12,13 +12,9 @@ import {
   asyncEditInventory
 } from './Actions/methods';
 
-import * as actions from './Actions/actions';
-
-function editItem (obj, key, val) {
-  console.log("editItem")
-  console.log(obj, key, val)
-  return obj[key] = val;
-}
+// function editItem (obj, key, val) {
+//   return obj[key] = val;
+// }
 
 
 
@@ -109,11 +105,7 @@ class App extends Component {
     const deleteIds = inventoryList
     .filter((item, index) => deleteIndexes.indexOf(index) > -1)
     .map(i => i._id);
-    
-    console.log("deleted", deleteIds);
-    console.log("props", inventoryList, inventoryList[deleteIds[0]])
-    // actions.deleteInventory(deleteIds);
-    // Need to be passed through containers for dispatch binding
+
     deleteManyInventory(deleteIds);
   }
 
@@ -121,8 +113,7 @@ class App extends Component {
   render() {
     const { 
       inventoryList, 
-      selectInventoryId, 
-      currentItemId 
+      selectInventoryId
     } = this.props;
     const { showEdit, currentItem } = this.state;
 

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { filterArrById } from '../Actions/methods';
 import initState from './initState';
-import { findWhere, findIndex } from 'underscore';
+import { findWhere } from 'underscore';
 // import UpdateFoodItemReducer from './UpdateFoodItemReducer';
 
 

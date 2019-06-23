@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import App from '../App';
 import * as action from '../Actions/actions';
 import { bindActionCreators } from 'redux';
-import FoodItemReducer from './../Reducers/UpdateFoodItemReducer';
 
 const mapStateToProps = (state) => {
     return {
