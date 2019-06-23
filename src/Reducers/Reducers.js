@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { filterArrById } from '../Actions/methods';
 import initState from './initState';
-import { findWhere } from 'underscore';
+import { findWhere, find } from 'underscore';
 // import UpdateFoodItemReducer from './UpdateFoodItemReducer';
 
 
@@ -116,7 +116,8 @@ const initInventoryState = {
     loading: false,
     currentItemId: "",
     inventoryIdList: [],
-    currentInventory: []
+    currentInventory: [],
+    showEdit: false
 }
 
 function FoodItemReducer(state = initInventoryState, action) {
@@ -124,6 +125,7 @@ function FoodItemReducer(state = initInventoryState, action) {
         case 'SELECT_ID': {
             return {
                 ...state,
+                showEdit: true,
                 currentItemId: action.payload
             }
         }
@@ -183,6 +185,20 @@ function FoodItemReducer(state = initInventoryState, action) {
             }
         }
 
+        case 'ADD_INVENTORY_NAME': {
+            const { _id } = action.payload;
+            const { currentInventory } = state;
+            const newSelectedItemId = currentInventory
+            .map(inventoryItem => inventoryItem._id)
+            .indexOf(_id);
+
+            return {
+                ...state,
+                showEdit: true,
+                currentItemId: newSelectedItemId
+            }
+        }
+
         case 'ADD_INVENTORY_FAILURE': {
             return {
                 ...state,
@@ -220,6 +236,7 @@ function FoodItemReducer(state = initInventoryState, action) {
             return {
                 ...state,
                 loading: false,
+                showEdit: false,
                 currentInventory: newInventory
             }
         }
@@ -228,6 +245,7 @@ function FoodItemReducer(state = initInventoryState, action) {
             return {
                 ...state,
                 loading: false,
+                showEdit: false,
                 message: {
                     error: "Failure to get inventory from server"
                 }

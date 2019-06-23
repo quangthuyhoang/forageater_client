@@ -27,6 +27,7 @@ class App extends Component {
       upc: "",
       showEdit: true,
       currentItem: {
+        name: "",
         upc: "",
         quantity: "",
         date: "",
@@ -79,9 +80,10 @@ class App extends Component {
   }
 
   handleUpdatedCurrentItem (inventory, id) {
-    const { showEdit } = this.state;
+    const { showEdit } = this.props;
     const localInventory = inventory;
     const currentId = id;
+
     if(showEdit) {
       this.setState({
         currentItem: localInventory[currentId],
@@ -92,11 +94,20 @@ class App extends Component {
     }
   }
 
+  resetState () {
+    this.setState({currentItem: {
+      name: "",
+      upc: "",
+      quantity: "",
+      date: "",
+      createdAt: ""
+    }})
+  }
+
   updateItemInDB (item) {
-    console.log("saved", item._id, 'with qty', item.quantity);
-    asyncEditInventory(item._id, item.quantity)
+    asyncEditInventory(item._id, item)
     .then(results => {
-      console.log("return edit results", results)
+      this.resetState();
     }) 
   }
 
@@ -113,12 +124,13 @@ class App extends Component {
   render() {
     const { 
       inventoryList, 
-      selectInventoryId
+      selectInventoryId,
+      showEdit
     } = this.props;
-    const { showEdit, currentItem } = this.state;
+    const { currentItem } = this.state;
 
-   
-    console.log("current item:", currentItem);
+   const currentItemName = currentItem.name || '';
+
     return (
       <Router>
         
@@ -146,6 +158,9 @@ class App extends Component {
             <button onClick={() => {this.updateItemInDB(currentItem)}}>Save Changes</button>
             { showEdit && currentItem ? 
               <div>
+                <input name="name" type="text" onChange={(e) => {
+                  this.editItemHandler(e.target.name, e.target.value)}} 
+                  value={currentItemName}></input>
                 <input name="upc" type="text"
                 value={currentItem.upc}></input>
                 <input name="quantity" type="number" onChange={(e) => {

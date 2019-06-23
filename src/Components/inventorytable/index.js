@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import Grid from '@material-ui/core/Grid';
+
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
@@ -261,7 +261,11 @@ class EnhancedTable extends React.Component {
 
     let mockInventoryList = mockData;
 
-    const updatedInventory = mockInventoryList.map( (item, i ) => {
+    // const updatedInventory = mockInventoryList.map( (item, i ) => {
+    //   return createNewData(i, item.upc, item.name, item.quantity, item.date, item.createdAt)
+    // });
+
+    const updatedInventory = inventoryList.map( (item, i ) => {
       return createNewData(i, item.upc, item.name, item.quantity, item.date, item.createdAt)
     });
 

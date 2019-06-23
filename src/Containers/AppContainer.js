@@ -8,7 +8,8 @@ const mapStateToProps = (state) => {
         groceryList: state.GroceryListReducer.groceryList,
         dishList: state.GroceryListReducer.dish,
         inventoryList: state.FoodItemReducer.currentInventory,
-        currentItemId: state.FoodItemReducer.currentItemId
+        currentItemId: state.FoodItemReducer.currentItemId,
+        showEdit: state.FoodItemReducer.showEdit
     }
 }
 

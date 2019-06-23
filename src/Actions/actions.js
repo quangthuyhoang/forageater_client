@@ -5,6 +5,7 @@ import {
     apiGetInventory,
     asyncAddInventory ,
     asyncEditInventory,
+    asyncEditInventoryQuantity,
     asyncDeleteManyInventory
     } from './methods';
 // const apiURL = "locahost";
@@ -244,6 +245,8 @@ export function getInventory() {
 
 // ------------ ADD ITEM ---------------
 
+
+
 const AddInventoryBegin = () => {
     return {
         type: 'ADD_INVENTORY'
@@ -263,15 +266,26 @@ const AddInventoryFailure = () => {
     }
 }
 
+const AddInventoryName = (payload) => {
+    return {
+        type: 'ADD_INVENTORY_NAME',
+        payload: payload
+    }
+}
+
 export function addInventory(code) {
     return function(dispatch) {
         dispatch(AddInventoryBegin())
         return asyncAddInventory(code)
         .then(data => {
             if(data.errors) {
-                dispatch(AddInventoryFailure())
+                dispatch(AddInventoryFailure());
             } else {
-                dispatch(AddInventorySuccess(data))
+                dispatch(AddInventorySuccess(data));
+                if(data.name === undefined) {
+                    console.log("couldnt find data name")
+                    dispatch(AddInventoryName(data));
+                }
             }
         })
     }
@@ -313,7 +327,7 @@ export function editInventory(code) {
 }
 
 export function updateInventory(updatedItem) {
-    return asyncEditInventory(updatedItem._id, updatedItem.quantity)
+    return asyncEditInventory(updatedItem._id, updatedItem)
 }
 
 // ------------ DELETE ITEM ---------------
